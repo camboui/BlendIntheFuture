@@ -1,7 +1,7 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlendIntheFuture.CSharp", "BlendIntheFuture.CSharp.csproj", "{FFE2F171-0043-5F05-353E-56D58CB8EF6C}"
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{8E76B3F2-651F-F292-35B9-91FA0A1A1D29}") = "BlendIntheFuture", "Assembly-CSharp.csproj", "{F6235D0F-F91F-9993-6EEC-49026074DF7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,12 +9,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FFE2F171-0043-5F05-353E-56D58CB8EF6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFE2F171-0043-5F05-353E-56D58CB8EF6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFE2F171-0043-5F05-353E-56D58CB8EF6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFE2F171-0043-5F05-353E-56D58CB8EF6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6235D0F-F91F-9993-6EEC-49026074DF7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6235D0F-F91F-9993-6EEC-49026074DF7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6235D0F-F91F-9993-6EEC-49026074DF7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6235D0F-F91F-9993-6EEC-49026074DF7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal

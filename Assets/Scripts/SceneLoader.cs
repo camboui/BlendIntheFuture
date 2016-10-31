@@ -13,4 +13,8 @@ public class SceneLoader : MonoBehaviour{
 			Debug.Log ("Can't load unexisting scene : '" + sceneName + "'");
 		}
 	}
+
+	public void exit(){
+		Application.Quit ();
+	}
 }
