@@ -20,7 +20,7 @@ public class CheckNewControllers : MonoBehaviour {
 	{
 		string[] inputs = Input.GetJoystickNames ();
 		if(inputs.Length !=nb_controller){
-			nb_controller++;
+			nb_controller=inputs.Length;
 			foreach (string p in Input.GetJoystickNames()) {
 				Debug.Log ("Input change : " + p);
 				GameObject temp = Instantiate (prefab_PlayerChoice) as GameObject;
