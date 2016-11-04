@@ -115,7 +115,6 @@ public class PlayerSelectionController : MonoBehaviour {
 		//when leaving the scene, add a player to game static variables
 		if (currentState != 0 && currentState >= maxState-1) {
 			GameVariables.players.Add (new Player (playerControllerId, currentColor));
-			print ("YOLO");
 		}
 	}
 
