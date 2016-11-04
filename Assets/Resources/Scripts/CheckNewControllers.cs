@@ -86,7 +86,9 @@ public class CheckNewControllers : MonoBehaviour {
 					currentAccepted++;
 				}
 			}
-
+			if (Input.GetKeyDown (xboxInputs [j - 1].B) && !pluggedControllersId.Contains (j)) {
+				SceneManager.LoadScene (1);
+			}
 		}
 	}
 		
