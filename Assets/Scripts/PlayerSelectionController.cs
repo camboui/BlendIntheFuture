@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerSelectionController : MonoBehaviour {
 
@@ -10,8 +11,6 @@ public class PlayerSelectionController : MonoBehaviour {
 	public int playerControllerId;
 
 	private bool changedRecently;
-	private bool colorChoosen;
-	public bool isReady;
 
 	private KeyCode A,B,X,Y,BStart,Select,LR,LT;
 	private Color currentColor;
@@ -19,11 +18,13 @@ public class PlayerSelectionController : MonoBehaviour {
 	private Text text;
 	private Text playText;
 
+	private int currentState;
+	private int maxState;
+	private List<String> textState;
+
 	void Start()
 	{
 		currentColor = GameVariables.availableColors [0];
-		colorChoosen = false;
-		isReady = false;
 		changedRecently = false;
 
 		imagesToColor = new List<Image> ();
@@ -33,17 +34,15 @@ public class PlayerSelectionController : MonoBehaviour {
 
 		playText = GameObject.Find ("Play").GetComponent<Text>();
 
+		currentState = 0;
 		text = transform.FindChild ("Press A").GetComponent<Text> ();
-		text.text = "Choose Color (A)";
+		textState = new List<string> (){ "Choose Color (A)","Ready ? (A)","Ready !"};
+		maxState = textState.Count;
+		text.text = textState [currentState];
 
 		//See http://wiki.unity3d.com/index.php?title=Xbox360Controller for button number
 		A = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button0");
 		B = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button1");
-		X = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button2");
-		Y = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button3");
-		LT = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button4");
-		LR = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button5");
-		Select = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button6");
 		BStart = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button7");
 	
 	}
@@ -59,7 +58,7 @@ public class PlayerSelectionController : MonoBehaviour {
 		float joyStickX = Input.GetAxis ("X_" + playerControllerId);
 
 		//prevent from infinite change
-		if (!colorChoosen) {
+		if (currentState == 0) {
 			if (joyStickX < 0.5f && joyStickX > -0.5f)
 				changedRecently = false;
 		
@@ -74,33 +73,37 @@ public class PlayerSelectionController : MonoBehaviour {
 				changedRecently = true;
 			}
 		}
-		//validate in 2 times
+		//Go to next state if possible
 		if (Input.GetKeyDown (A)) {
 			int currentReady = nbReady;
-			if (!colorChoosen) {
-				colorChoosen = true;
-				text.text = "Ready ? (A)";
-			} else if (!isReady) {
-				isReady = true;
-				text.text = "Ready !";
-				nbReady++;
-			} 
-			if (currentReady<=1 && nbReady >= 2) {
+			if (currentState < maxState) {
+				currentState++;
+
+				if (currentState == maxState)
+					nbReady++;
+				else 
+					text.text = textState [currentState];
+			}
+			if (currentReady <= 1 && nbReady >= 2) {
 				playText.enabled = true;
 			}
 			if (currentReady >= 2) {
 				SceneManager.LoadScene ("GameLoop"); //TODO change this
 			}
 		}
-		//invalidate in 2 times
+		//Go to previous state if possible
 		if (Input.GetKeyDown (B)) {
-			if (isReady) {
-				isReady = false;
-				text.text = "Ready ? (A)";
-				nbReady--;
-			} else if (colorChoosen) {
-				colorChoosen = false;
-				text.text = "Choose Color (A)";
+
+			//Player wants to go back to previous menu
+			if (currentState == 0) { 
+				SceneManager.LoadScene (0);
+			}
+			if (currentState > 0) {
+				if (currentState == maxState)
+					nbReady--;
+				
+				currentState--;
+				text.text = textState [currentState];
 			}
 			if (nbReady < 2) {
 				playText.enabled = false;

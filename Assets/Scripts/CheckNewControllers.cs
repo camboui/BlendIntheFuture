@@ -70,6 +70,7 @@ public class CheckNewControllers : MonoBehaviour {
 		}
 
 		for (int j = 1; j <= 4; j++) {
+			//A
 			if (Input.GetKeyDown ("joystick " + j + " button 0")) {
 				if (!pluggedControllersId.Contains (j)) {
 					pluggedControllersId.Add (j);
@@ -77,6 +78,10 @@ public class CheckNewControllers : MonoBehaviour {
 					playersSelector [currentAccepted].GetComponent<PlayerSelectionController> ().playerControllerId = j;
 					currentAccepted++;
 				}
+			}
+			//B
+			else if(Input.GetKeyDown ("joystick " + j + " button 1")){
+				SceneManager.LoadScene (0);
 			}
 		}
 	}
