@@ -12,7 +12,7 @@ public class PlayerSelectionController : MonoBehaviour {
 
 	private bool changedRecently;
 
-	private KeyCode A,B,X,Y,BStart,Select,LR,LT;
+	private KeyCode A,B,BStart;
 	private Color currentColor;
 	private List<Image> imagesToColor;
 	private Text text;
@@ -74,17 +74,17 @@ public class PlayerSelectionController : MonoBehaviour {
 			}
 		}
 		//Go to next state if possible
-		if (Input.GetKeyDown (A)) {
+		if (Input.GetKeyDown (A) || Input.GetKeyDown (BStart)) {
 			int currentReady = nbReady;
 			if (currentState < maxState) {
 				currentState++;
 
-				if (currentState == maxState)
+				if (currentState == maxState-1)
 					nbReady++;
-				else 
+				if (currentState < maxState)
 					text.text = textState [currentState];
 			}
-			if (currentReady <= 1 && nbReady >= 2) {
+			if (currentReady <= 1 && nbReady >= GameVariables.minPlayers) {
 				playText.enabled = true;
 			}
 			if (currentReady >= 2) {
@@ -92,20 +92,19 @@ public class PlayerSelectionController : MonoBehaviour {
 			}
 		}
 		//Go to previous state if possible
-		if (Input.GetKeyDown (B)) {
-
+		else if (Input.GetKeyDown (B)) {
 			//Player wants to go back to previous menu
 			if (currentState == 0) { 
-				SceneManager.LoadScene (0);
+				SceneManager.LoadScene (1);
 			}
 			if (currentState > 0) {
-				if (currentState == maxState)
+				if (currentState == maxState-1)
 					nbReady--;
 				
 				currentState--;
 				text.text = textState [currentState];
 			}
-			if (nbReady < 2) {
+			if (nbReady < GameVariables.minPlayers) {
 				playText.enabled = false;
 			}
 		}

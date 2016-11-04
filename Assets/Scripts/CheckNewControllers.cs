@@ -10,13 +10,16 @@ public class CheckNewControllers : MonoBehaviour {
 	public GameObject prefab_PlayerChoice;
 	private int currentPlugged;
 	private int currentAccepted;
-	private GameObject prefabParent;
 	private List<GameObject> playersSelector;
 	private List<int> pluggedControllersId;
 
 	private RectTransform canvasRect;
 	// Use this for initialization
 	void Start () {
+		//Clear global variables when entering back in the scene
+		GameVariables.players.Clear ();
+
+
 		playersSelector = new List<GameObject> ();
 		for (int i = 1; i <= 4; i++) {
 			playersSelector.Add (GameObject.Find("Player " + i));
@@ -24,7 +27,6 @@ public class CheckNewControllers : MonoBehaviour {
 	
 		currentPlugged = getNumberOfDevices();
 		currentAccepted = 0;
-		prefabParent = GameObject.Find ("Canvas");
 		pluggedControllersId = new List<int> ();
 
 		int k = 0;
@@ -57,7 +59,6 @@ public class CheckNewControllers : MonoBehaviour {
 
 		if (newPlugged != currentPlugged) {
 			if (newPlugged < currentPlugged) {
-				print ("MAMAM");
 				SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 			} else {
 				for (int j = currentPlugged + 1; j <= newPlugged - currentPlugged + 1; j++) {
@@ -79,10 +80,7 @@ public class CheckNewControllers : MonoBehaviour {
 					currentAccepted++;
 				}
 			}
-			//B
-			else if(Input.GetKeyDown ("joystick " + j + " button 1")){
-				SceneManager.LoadScene (0);
-			}
+
 		}
 	}
 		

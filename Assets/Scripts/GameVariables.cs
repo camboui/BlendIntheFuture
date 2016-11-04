@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameVariables : MonoBehaviour {
 	
 	public static List<Player> players;
 	public static List<Color> availableColors;
 	public static int maxPlayers = 4;
+	public static int minPlayers = 1;
 
 	private static int nbColors;
 
@@ -15,6 +17,9 @@ public class GameVariables : MonoBehaviour {
 		players = new List<Player> ();
 		availableColors= new List<Color> (){Color.blue,Color.cyan,Color.gray,Color.green,Color.magenta,Color.red,Color.yellow};
 		nbColors = availableColors.Count;
+
+		//This is scene 0, load scene 1
+		SceneManager.LoadScene (1);
 	}
 
 	//return next right color from the list according to current position
