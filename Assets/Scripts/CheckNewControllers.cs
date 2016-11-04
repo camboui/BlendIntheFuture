@@ -12,6 +12,7 @@ public class CheckNewControllers : MonoBehaviour {
 	private int currentAccepted;
 	private List<GameObject> playersSelector;
 	private List<int> pluggedControllersId;
+	private List<XboxInput> xboxInputs;
 
 	private RectTransform canvasRect;
 	// Use this for initialization
@@ -19,10 +20,12 @@ public class CheckNewControllers : MonoBehaviour {
 		//Clear global variables when entering back in the scene
 		GameVariables.players.Clear ();
 
+		xboxInputs = new List<XboxInput> ();
 
 		playersSelector = new List<GameObject> ();
 		for (int i = 1; i <= 4; i++) {
 			playersSelector.Add (GameObject.Find("Player " + i));
+			xboxInputs.Add (new XboxInput (i));
 		}
 	
 		currentPlugged = getNumberOfDevices();
@@ -55,14 +58,17 @@ public class CheckNewControllers : MonoBehaviour {
 
 	void Update()
 	{
+		//check if there is a change in connected controllers
 		int newPlugged = getNumberOfDevices ();
 
+
 		if (newPlugged != currentPlugged) {
+			//Reaload scene if a controller is removed
 			if (newPlugged < currentPlugged) {
 				SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 			} else {
+				//Change printing if controller is added
 				for (int j = currentPlugged + 1; j <= newPlugged - currentPlugged + 1; j++) {
-					
 					playersSelector [j - 1].transform.FindChild ("enabled").gameObject.SetActive (true);
 					playersSelector [j - 1].transform.FindChild ("disabled").gameObject.SetActive (false);
 				}
@@ -71,8 +77,8 @@ public class CheckNewControllers : MonoBehaviour {
 		}
 
 		for (int j = 1; j <= 4; j++) {
-			//A
-			if (Input.GetKeyDown ("joystick " + j + " button 0")) {
+			//Player joins the game, change printing and activate script on Gameobject
+			if (Input.GetKeyDown (xboxInputs[j-1].A)) {
 				if (!pluggedControllersId.Contains (j)) {
 					pluggedControllersId.Add (j);
 					playersSelector [currentAccepted].GetComponent<PlayerSelectionController> ().enabled = true;

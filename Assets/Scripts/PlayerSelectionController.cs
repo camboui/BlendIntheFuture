@@ -12,7 +12,6 @@ public class PlayerSelectionController : MonoBehaviour {
 
 	private bool changedRecently;
 
-	private KeyCode A,B,BStart;
 	private Color currentColor;
 	private List<Image> imagesToColor;
 	private Text text;
@@ -22,11 +21,14 @@ public class PlayerSelectionController : MonoBehaviour {
 	private int maxState;
 	private List<String> textState;
 
+	private XboxInput xboxInput;
+
 	void Start()
 	{
 		currentColor = GameVariables.availableColors [0];
 		changedRecently = false;
 
+		//All images which need to be recolored according to player selection
 		imagesToColor = new List<Image> ();
 		imagesToColor.Add( transform.FindChild ("Background").GetComponentInChildren<Image> ());
 		imagesToColor.Add( transform.FindChild ("enabled").GetComponentInChildren<Image> ());
@@ -34,17 +36,14 @@ public class PlayerSelectionController : MonoBehaviour {
 
 		playText = GameObject.Find ("Play").GetComponent<Text>();
 
+		//Different states of validation 
 		currentState = 0;
 		text = transform.FindChild ("Press A").GetComponent<Text> ();
 		textState = new List<string> (){ "Choose Color (A)","Ready ? (A)","Ready !"};
 		maxState = textState.Count;
 		text.text = textState [currentState];
 
-		//See http://wiki.unity3d.com/index.php?title=Xbox360Controller for button number
-		A = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button0");
-		B = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button1");
-		BStart = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button7");
-	
+		xboxInput = new XboxInput (playerControllerId);
 	}
 
 	void colorImages(){
@@ -55,7 +54,7 @@ public class PlayerSelectionController : MonoBehaviour {
 
 	void Update () {
 
-		float joyStickX = Input.GetAxis ("X_" + playerControllerId);
+		float joyStickX = xboxInput.getXaxis ();
 
 		//prevent from infinite change
 		if (currentState == 0) {
@@ -73,9 +72,9 @@ public class PlayerSelectionController : MonoBehaviour {
 				changedRecently = true;
 			}
 		}
-		//Go to next state if possible
-		if (Input.GetKeyDown (A) || Input.GetKeyDown (BStart)) {
+		if (Input.GetKeyDown (xboxInput.A) || Input.GetKeyDown (xboxInput.BStart)) {
 			int currentReady = nbReady;
+			//go to next state and update printing
 			if (currentState < maxState) {
 				currentState++;
 
@@ -84,19 +83,20 @@ public class PlayerSelectionController : MonoBehaviour {
 				if (currentState < maxState)
 					text.text = textState [currentState];
 			}
+			//if there are enough player, show "Play" text
 			if (currentReady <= 1 && nbReady >= GameVariables.minPlayers) {
 				playText.enabled = true;
 			}
 			if (currentState == maxState && currentReady >= GameVariables.minPlayers) {
-				SceneManager.LoadScene ("GameLoop"); //TODO change this
+				SceneManager.LoadScene ("GameLoop"); 
 			}
 		}
-		//Go to previous state if possible
-		else if (Input.GetKeyDown (B)) {
+		else if (Input.GetKeyDown (xboxInput.B)) {
 			//Player wants to go back to previous menu
 			if (currentState == 0) { 
 				SceneManager.LoadScene (1);
 			}
+			//go to previous state and update printing
 			if (currentState > 0) {
 				if (currentState == maxState-1)
 					nbReady--;
@@ -104,6 +104,7 @@ public class PlayerSelectionController : MonoBehaviour {
 				currentState--;
 				text.text = textState [currentState];
 			}
+			//if there are not enough player, hide "Play" text
 			if (nbReady < GameVariables.minPlayers) {
 				playText.enabled = false;
 			}
@@ -111,6 +112,7 @@ public class PlayerSelectionController : MonoBehaviour {
 	}
 
 	void OnDestroy(){
+		//when leaving the scene, add a player to game static variables
 		GameVariables.players.Add (new Player (playerControllerId,currentColor));
 	}
 

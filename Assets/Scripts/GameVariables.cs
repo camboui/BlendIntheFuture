@@ -15,7 +15,16 @@ public class GameVariables : MonoBehaviour {
 	void Start () {
 		DontDestroyOnLoad (gameObject);
 		players = new List<Player> ();
-		availableColors= new List<Color> (){Color.magenta,Color.red,Color.yellow,Color.blue,Color.cyan,Color.gray,Color.green};
+
+		availableColors = new List<Color> () {
+			Color.magenta,
+			Color.red,
+			Color.yellow,
+			Color.blue,
+			Color.cyan,
+			Color.gray,
+			Color.green
+		};
 		nbColors = availableColors.Count;
 
 		//This is scene 0, load scene 1

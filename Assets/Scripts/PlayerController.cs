@@ -9,53 +9,42 @@ public class PlayerController : MonoBehaviour
 	private Vector3 movementVector;
 	private float movementSpeed = 0.1f;
 
-	private KeyCode A,B,X,Y,BStart,Select,LR,LT;
-
+	private XboxInput xboxInput;
 	void Start()
 	{
-		//See http://wiki.unity3d.com/index.php?title=Xbox360Controller for button number
-		A = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button0");
-		B = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button1");
-		X = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button2");
-		Y = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button3");
-		LT = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button4");
-		LR = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button5");
-		Select = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button6");
-		BStart = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button7");
-
+		xboxInput = new XboxInput(playerId);
 	}
-
-
+		
 
 	void Update()
 	{
 		//X and Y axis are defined in Edit/Project Settings/Input
-		movementVector.x = Input.GetAxis ("X_" + playerId) * movementSpeed;
-		movementVector.y = Input.GetAxis ("Y_" + playerId) * movementSpeed;
+		movementVector.x = xboxInput.getXaxis() * movementSpeed;
+		movementVector.y = xboxInput.getYaxis() * movementSpeed;
 
 		transform.position += movementVector;
-		if (Input.GetKeyDown(A)) {
+		if (Input.GetKeyDown(xboxInput.A)) {
 			print ("P"+playerId+" : A");      
 		}
-		if (Input.GetKeyDown(B)) {
+		if (Input.GetKeyDown(xboxInput.B)) {
 			print ("P"+playerId+" : B");      
 		}
-		if (Input.GetKeyDown(X)) {
+		if (Input.GetKeyDown(xboxInput.X)) {
 			print ("P"+playerId+" : X");      
 		}
-		if (Input.GetKeyDown(Y)) {
+		if (Input.GetKeyDown(xboxInput.Y)) {
 			print ("P"+playerId+" : Y");      
 		}
-		if (Input.GetKeyDown(LT)) {
+		if (Input.GetKeyDown(xboxInput.LT)) {
 			print ("P"+playerId+" : LT");      
 		}
-		if (Input.GetKeyDown(LR)) {
+		if (Input.GetKeyDown(xboxInput.LR)) {
 			print ("P"+playerId+" : LR");      
 		}
-		if (Input.GetKeyDown(Select)) {
+		if (Input.GetKeyDown(xboxInput.Select)) {
 			print ("P"+playerId+" : Select");      
 		}
-		if (Input.GetKeyDown(BStart)) {
+		if (Input.GetKeyDown(xboxInput.BStart)) {
 			print ("P"+playerId+" : BStart");      
 		}
 		
