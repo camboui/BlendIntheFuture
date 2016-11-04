@@ -6,12 +6,14 @@ public class GameVariables : MonoBehaviour {
 	
 	public static List<Player> players;
 	public static List<Color> availableColors;
+	public static int maxPlayers = 4;
+
 	private static int nbColors;
 
 	void Start () {
 		DontDestroyOnLoad (gameObject);
 		players = new List<Player> ();
-		availableColors= new List<Color> (){Color.blue,Color.cyan,Color.gray,Color.green,Color.magenta,Color.red,Color.white,Color.yellow};
+		availableColors= new List<Color> (){Color.blue,Color.cyan,Color.gray,Color.green,Color.magenta,Color.red,Color.yellow};
 		nbColors = availableColors.Count;
 	}
 
