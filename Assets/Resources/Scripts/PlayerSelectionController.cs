@@ -74,7 +74,7 @@ public class PlayerSelectionController : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (xboxInput.A) || Input.GetKeyDown (xboxInput.BStart)) {
 			int currentReady = nbReady;
-			//go to next state and update printing
+			//go to next state and update Debug.Loging
 			if (currentState < maxState) {
 				currentState++;
 
@@ -96,7 +96,7 @@ public class PlayerSelectionController : MonoBehaviour {
 			if (currentState == 0) { 
 				SceneManager.LoadScene (1);
 			}
-			//go to previous state and update printing
+			//go to previous state and update Debug.Loging
 			if (currentState > 0) {
 				if (currentState == maxState-1)
 					nbReady--;
@@ -113,7 +113,10 @@ public class PlayerSelectionController : MonoBehaviour {
 
 	void OnDestroy(){
 		//when leaving the scene, add a player to game static variables
-		GameVariables.players.Add (new Player (playerControllerId,currentColor));
+		if (currentState != 0 && currentState >= maxState-1) {
+			GameVariables.players.Add (new Player (playerControllerId, currentColor));
+			print ("YOLO");
+		}
 	}
 
 

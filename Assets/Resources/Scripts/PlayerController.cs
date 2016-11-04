@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
 
 {
+	private static bool pausedGame;
 	public int playerId;
 	private Vector3 movementVector;
 	private float movementSpeed = 0.1f;
@@ -12,9 +14,14 @@ public class PlayerController : MonoBehaviour
 	private XboxInput xboxInput;
 	void Start()
 	{
+		pausedGame = false;
 		xboxInput = new XboxInput(playerId);
 	}
-		
+
+	//Script is disabled on start
+	void OnEnable(){
+		pausedGame = false;
+	}
 
 	void Update()
 	{
@@ -24,28 +31,32 @@ public class PlayerController : MonoBehaviour
 
 		transform.position += movementVector;
 		if (Input.GetKeyDown(xboxInput.A)) {
-			print ("P"+playerId+" : A");      
+			Debug.Log ("P"+playerId+" : A");      
 		}
 		if (Input.GetKeyDown(xboxInput.B)) {
-			print ("P"+playerId+" : B");      
+			Debug.Log ("P"+playerId+" : B");      
 		}
 		if (Input.GetKeyDown(xboxInput.X)) {
-			print ("P"+playerId+" : X");      
+			Debug.Log ("P"+playerId+" : X");      
 		}
 		if (Input.GetKeyDown(xboxInput.Y)) {
-			print ("P"+playerId+" : Y");      
+			Debug.Log ("P"+playerId+" : Y");      
 		}
 		if (Input.GetKeyDown(xboxInput.LT)) {
-			print ("P"+playerId+" : LT");      
+			Debug.Log ("P"+playerId+" : LT");      
 		}
 		if (Input.GetKeyDown(xboxInput.LR)) {
-			print ("P"+playerId+" : LR");      
+			Debug.Log ("P"+playerId+" : LR");      
 		}
 		if (Input.GetKeyDown(xboxInput.Select)) {
-			print ("P"+playerId+" : Select");      
+			Debug.Log ("P"+playerId+" : Select");      
 		}
 		if (Input.GetKeyDown(xboxInput.BStart)) {
-			print ("P"+playerId+" : BStart");      
+			Debug.Log ("P"+playerId+" : BStart");
+			if (!pausedGame) {
+				SceneManager.LoadScene ("PauseMenu", LoadSceneMode.Additive);
+				pausedGame = true;
+			}
 		}
 		
 

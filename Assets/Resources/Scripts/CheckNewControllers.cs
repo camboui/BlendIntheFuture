@@ -67,7 +67,7 @@ public class CheckNewControllers : MonoBehaviour {
 			if (newPlugged < currentPlugged) {
 				SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 			} else {
-				//Change printing if controller is added
+				//Change Debug.Loging if controller is added
 				for (int j = currentPlugged + 1; j <= newPlugged - currentPlugged + 1; j++) {
 					playersSelector [j - 1].transform.FindChild ("enabled").gameObject.SetActive (true);
 					playersSelector [j - 1].transform.FindChild ("disabled").gameObject.SetActive (false);
@@ -77,7 +77,7 @@ public class CheckNewControllers : MonoBehaviour {
 		}
 
 		for (int j = 1; j <= 4; j++) {
-			//Player joins the game, change printing and activate script on Gameobject
+			//Player joins the game, change Debug.Loging and activate script on Gameobject
 			if (Input.GetKeyDown (xboxInputs[j-1].A)) {
 				if (!pluggedControllersId.Contains (j)) {
 					pluggedControllersId.Add (j);
