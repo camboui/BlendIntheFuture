@@ -87,7 +87,7 @@ public class PlayerSelectionController : MonoBehaviour {
 			if (currentReady <= 1 && nbReady >= GameVariables.minPlayers) {
 				playText.enabled = true;
 			}
-			if (currentReady >= 2) {
+			if (currentState == maxState && currentReady >= GameVariables.minPlayers) {
 				SceneManager.LoadScene ("GameLoop"); //TODO change this
 			}
 		}
