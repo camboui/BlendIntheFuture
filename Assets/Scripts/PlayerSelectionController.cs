@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerSelectionController : MonoBehaviour {
 
-	public int playerId;
+	public int playerControllerId;
 
 	private bool changedRecently;
 	private bool colorChoosen;
@@ -24,20 +24,20 @@ public class PlayerSelectionController : MonoBehaviour {
 		img.color = currentColor;
 
 		//See http://wiki.unity3d.com/index.php?title=Xbox360Controller for button number
-		A = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button0");
-		B = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button1");
-		X = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button2");
-		Y = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button3");
-		LT = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button4");
-		LR = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button5");
-		Select = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button6");
-		BStart = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerId + "Button7");
+		A = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button0");
+		B = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button1");
+		X = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button2");
+		Y = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button3");
+		LT = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button4");
+		LR = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button5");
+		Select = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button6");
+		BStart = (KeyCode)System.Enum.Parse (typeof(KeyCode), "Joystick" + playerControllerId + "Button7");
 	
 	}
 
 	void Update () {
 
-		float joyStickX = Input.GetAxis ("X_" + playerId);
+		float joyStickX = Input.GetAxis ("X_" + playerControllerId);
 
 		//prevent from infinite change
 		if(joyStickX < 0.5f && joyStickX >-0.5f)
@@ -69,6 +69,10 @@ public class PlayerSelectionController : MonoBehaviour {
 				colorChoosen = false;
 			}
 		}
+	}
+
+	void OnDestroy(){
+		GameVariables.players.Add (new Player (playerControllerId,currentColor));
 	}
 
 

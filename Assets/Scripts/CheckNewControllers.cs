@@ -9,29 +9,27 @@ public class CheckNewControllers : MonoBehaviour {
 
 
 	private GameObject prefabParent;
-	private int nbController;
+	private int nbControllerPrinted;
 	private List<GameObject> players;
+	private List<int> pluggedControllersId;
 
 	// Use this for initialization
 	void Start () {
 		players = new List<GameObject> ();
-		nbController = getNumberOfDevices ();
+		nbControllerPrinted = 0;
 		prefabParent = GameObject.Find ("Canvas");
-
-		for (int i = 1; i <= nbController; i++) {
-			createPrefab (i);
-		}
+		pluggedControllersId = new List<int> ();
 	}
 
 	//Instantiate prefab according to its given index
-	private void createPrefab(int index){
+	private void createPrefab(int index, int joystickId){
 		GameObject newGO = Instantiate (prefab_PlayerChoice) as GameObject;
-		newGO.transform.name = "Player " + index;
+		newGO.transform.name = "Player " + (index + 1);
 		newGO.transform.SetParent (prefabParent.transform);
 
-		newGO.GetComponentInChildren<PlayerSelectionController> ().playerId = index;
+		newGO.GetComponentInChildren<PlayerSelectionController> ().playerControllerId = joystickId;
 
-		newGO.GetComponentInChildren<Text> ().text = "Player " + index;
+		newGO.GetComponentInChildren<Text> ().text = "Player " + (index + 1);
 		newGO.transform.localPosition = new Vector2 ((index - 1) * prefab_PlayerChoice.GetComponent<RectTransform> ().sizeDelta.x, 0);
 		players.Add (newGO);
 	}
@@ -47,40 +45,41 @@ public class CheckNewControllers : MonoBehaviour {
 	}
 
 	//get number of connected controllers
-	private List<int> getDevicesID(){
-		List<int> res = new List<int> ();
+	private void updateDevicesID(){
 		for (int j = 1; j <= 4; j++) {
 			if (Input.GetKeyDown ("joystick " + j + " button 0")) {
-				if(res.Contains(j))
-					res.Add (j);
+				if (!pluggedControllersId.Contains (j)) {
+					pluggedControllersId.Add (j);
+				}
 			}
 		}
-		return res;
 	}
 
 
 	void Update()
 	{
 		//Know which one pushed A
+		updateDevicesID();
 
+		int currentNbController = pluggedControllersId.Count;
 
-		int currentNbController = getNumberOfDevices ();
-		if (currentNbController != nbController) {
+		if (currentNbController != nbControllerPrinted) {
 			//add missing
-			if (currentNbController > nbController) {
-				for (int i = 1; i <= currentNbController - nbController; i++) {
+			if (currentNbController > nbControllerPrinted) {
+				for (int i = 0; i < currentNbController - nbControllerPrinted; i++) {
 					int currentIndex = players.Count + i;
-					createPrefab (currentIndex);
+					createPrefab (currentIndex,pluggedControllersId[currentIndex]);
 				}
 			} else {
 				//remove extra
-				for (int i = 0; i < nbController - currentNbController; i++) {
-					GameObject.DestroyImmediate (players [players.Count - 1]);
+				for (int i = 0; i < nbControllerPrinted - currentNbController; i++) {
+					GameObject.DestroyImmediate (players [players.Count]);
 					players.RemoveAt (players.Count - 1);
 				}
 			}
-			nbController = currentNbController;
+			nbControllerPrinted = currentNbController;
 		}
+
 			
 	}
 		
