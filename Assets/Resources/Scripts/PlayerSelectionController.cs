@@ -84,7 +84,8 @@ public class PlayerSelectionController : MonoBehaviour {
 			if (currentState < maxState) {
 				currentState++;
 
-				usedColors.Add (playerControllerId, currentColor);
+				if(!usedColors.ContainsValue(currentColor))
+					usedColors.Add (playerControllerId, currentColor);
 
 				if (currentState == maxState-1)
 					nbReady++;
