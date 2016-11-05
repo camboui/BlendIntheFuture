@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 
 public class CheckNewControllers : MonoBehaviour {
 
-	public GameObject prefab_PlayerChoice;
 	private int currentPlugged;
 	private int currentAccepted;
 	private List<GameObject> playersSelector;

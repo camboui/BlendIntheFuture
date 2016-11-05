@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 	private static bool pausedGame;
 	public int playerId;
 	private Vector3 movementVector;
-	private float movementSpeed = 0.1f;
+	private float movementSpeed = 1f;
 
 	private XboxInput xboxInput;
 	void Start()
@@ -26,8 +26,8 @@ public class PlayerController : MonoBehaviour
 	void Update()
 	{
 		//X and Y axis are defined in Edit/Project Settings/Input
-		movementVector.x = xboxInput.getXaxis() * movementSpeed;
-		movementVector.y = xboxInput.getYaxis() * movementSpeed;
+		movementVector.x = xboxInput.getXaxis() * movementSpeed * Time.deltaTime;
+		movementVector.y = xboxInput.getYaxis () * movementSpeed * Time.deltaTime;
 
 		transform.position += movementVector;
 		if (Input.GetKeyDown(xboxInput.A)) {

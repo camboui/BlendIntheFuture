@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Resources\Scripts\AI_Wandering.cs" />
      <Compile Include="Assets\Resources\Scripts\CheckNewControllers.cs" />
      <Compile Include="Assets\Resources\Scripts\DescriptionMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\GameCreator.cs" />
