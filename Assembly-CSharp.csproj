@@ -51,11 +51,11 @@
      <Compile Include="Assets\Resources\Scripts\GameCreator.cs" />
      <Compile Include="Assets\Resources\Scripts\GameVariables.cs" />
      <Compile Include="Assets\Resources\Scripts\HandleTorus.cs" />
-     <Compile Include="Assets\Resources\Scripts\MainMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\PauseMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\Player.cs" />
      <Compile Include="Assets\Resources\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Resources\Scripts\PlayerSelectionController.cs" />
+     <Compile Include="Assets\Resources\Scripts\SceneLoader.cs" />
      <Compile Include="Assets\Resources\Scripts\UpdateTimer.cs" />
      <Compile Include="Assets\Resources\Scripts\XboxInput.cs" />
  <Reference Include="UnityEngine.UI">
