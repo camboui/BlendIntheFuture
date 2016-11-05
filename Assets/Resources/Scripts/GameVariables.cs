@@ -42,26 +42,28 @@ public class GameVariables : MonoBehaviour {
 	}
 
 	//return next right color from the list according to current position
-	public static Color getNextColorRight(Color current)
+	public static Color getNextColorRight(Color current,Dictionary<int,Color> used)
 	{
 		int index = availableColors.FindIndex (o => o == current);
-		index++;
+		do {
+			index++;
 
-		if (index >= nbColors)
-			index = 0;
-
+			if (index >= nbColors)
+				index = 0;
+		} while(used.ContainsValue (availableColors [index]));
 		return availableColors [index];
 	}
 
 	//return next left color from the list according to current position
-	public static Color getNextColorLeft(Color current)
+	public static Color getNextColorLeft(Color current,Dictionary<int,Color> used)
 	{
 		int index = availableColors.FindIndex (o => o == current);
-		index--;
+		do {
+			index--;
 
-		if (index < 0)
-			index = nbColors - 1;
-
+			if (index < 0)
+				index = nbColors - 1;
+		} while(used.ContainsValue (availableColors [index]));
 		return availableColors [index];
 	}
 

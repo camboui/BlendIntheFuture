@@ -8,15 +8,16 @@ using System;
 public class PlayerSelectionController : MonoBehaviour {
 
 	public static int nbReady;
+	private static Dictionary<int,Color> usedColors = new Dictionary<int,Color>();
+
 	public int playerControllerId;
 
-	private bool changedRecently;
 
+	private bool changedRecently;
 	private Color currentColor;
 	private List<Image> imagesToColor;
 	private Text text;
 	private Text playText;
-
 	private int currentState;
 	private int maxState;
 	private List<String> textState;
@@ -63,13 +64,18 @@ public class PlayerSelectionController : MonoBehaviour {
 		
 			//change color for player
 			if (joyStickX == 1 && !changedRecently) {
-				currentColor = GameVariables.getNextColorRight (currentColor);
+				currentColor = GameVariables.getNextColorRight (currentColor,usedColors);
 				colorImages ();
 				changedRecently = true;
 			} else if (joyStickX == -1 && !changedRecently) {
-				currentColor = GameVariables.getNextColorLeft (currentColor);
+				currentColor = GameVariables.getNextColorLeft (currentColor,usedColors);
 				colorImages ();
 				changedRecently = true;
+			}
+
+			if (usedColors.ContainsValue(currentColor)) {
+				currentColor = GameVariables.getNextColorRight (currentColor,usedColors);
+				colorImages ();
 			}
 		}
 		if (Input.GetKeyDown (xboxInput.A) || Input.GetKeyDown (xboxInput.BStart)) {
@@ -77,6 +83,8 @@ public class PlayerSelectionController : MonoBehaviour {
 			//go to next state and update Debug.Loging
 			if (currentState < maxState) {
 				currentState++;
+
+				usedColors.Add (playerControllerId, currentColor);
 
 				if (currentState == maxState-1)
 					nbReady++;
@@ -107,6 +115,7 @@ public class PlayerSelectionController : MonoBehaviour {
 			//if there are not enough player, hide "Play" text
 			if (nbReady < GameVariables.minPlayers) {
 				playText.enabled = false;
+				usedColors.Remove (playerControllerId);
 			}
 		}
 	}
