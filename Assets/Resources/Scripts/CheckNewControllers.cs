@@ -14,7 +14,6 @@ public class CheckNewControllers : MonoBehaviour {
 	private List<int> pluggedControllersId;
 	private List<XboxInput> xboxInputs;
 
-	private RectTransform canvasRect;
 	// Use this for initialization
 	void Start () {
 		//Clear global variables when entering back in the scene

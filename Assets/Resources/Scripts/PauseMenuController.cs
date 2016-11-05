@@ -47,6 +47,16 @@ public class PauseMenuController : MonoBehaviour {
 		selectables [currentSelection].color = Color.red;
 	}
 
+	void resumeGame(){
+		SceneManager.UnloadScene ("PauseMenu");
+		//set back timeScale
+		Time.timeScale = previousTimeScale;
+		//re-enable all
+		foreach (MonoBehaviour p in disabledScripts) {
+			p.enabled = true;
+		}
+
+	}
 
 	void Update(){
 		//Foreach controller, handle actions
@@ -85,16 +95,11 @@ public class PauseMenuController : MonoBehaviour {
 			}
 
 			//Handle button actions
-			if (Input.GetKeyDown (xboxInputs [j].A)) {
+			if (Input.GetKeyDown (xboxInputs [j].BStart))
+				resumeGame ();
+			else if (Input.GetKeyDown (xboxInputs [j].A)) {
 				if (selectables [currentSelection].text.Equals ("Resume")) {
-					SceneManager.UnloadScene ("PauseMenu");
-					//set back timeScale
-					Time.timeScale = previousTimeScale;
-					//re-enable all
-					foreach (MonoBehaviour p in disabledScripts) {
-						p.enabled = true;
-					}
-
+					resumeGame ();
 				} else if (selectables [currentSelection].transform.name.Equals ("Help")) {
 					//SceneManager.LoadScene ("Help");
 				} else if (selectables [currentSelection].transform.name.Equals ("Quit")) {

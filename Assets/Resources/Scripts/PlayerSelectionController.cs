@@ -88,7 +88,7 @@ public class PlayerSelectionController : MonoBehaviour {
 				playText.enabled = true;
 			}
 			if (currentState == maxState && currentReady >= GameVariables.minPlayers) {
-				SceneManager.LoadScene ("GameLoop"); 
+				SceneManager.LoadScene ("GameDescriptionMenu"); 
 			}
 		}
 		else if (Input.GetKeyDown (xboxInput.B)) {

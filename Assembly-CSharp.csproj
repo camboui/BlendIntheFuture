@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Resources\Scripts\CheckNewControllers.cs" />
+     <Compile Include="Assets\Resources\Scripts\DescriptionMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\GameCreator.cs" />
      <Compile Include="Assets\Resources\Scripts\GameVariables.cs" />
      <Compile Include="Assets\Resources\Scripts\HandleTorus.cs" />

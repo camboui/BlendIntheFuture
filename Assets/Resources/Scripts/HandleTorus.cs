@@ -30,8 +30,7 @@ public class HandleTorus : MonoBehaviour {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				if (i != 0 || j != 0) {
-					GameObject newGO = Instantiate (playerRendererObject) as GameObject;
-					newGO.transform.SetParent (playerRendererObject.transform.parent);
+					GameObject newGO = Instantiate (playerRendererObject,playerRendererObject.transform.parent) as GameObject;
 					newGO.transform.localScale = playerRendererObject.transform.localScale;
 					newGO.transform.position = playerRendererObject.transform.position + new Vector3 (i * width, j * height, 0);
 					rendererCopies.Add (newGO.GetComponent<SpriteRenderer> ());
