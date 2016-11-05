@@ -6,7 +6,7 @@ public class GameCreator : MonoBehaviour {
 	public GameObject prefab_player;
 	public GameObject prefab_IA;
 	public Transform parentIA;
-	private int nbIA=20;//TODO make classes for game data
+	private int nbIA=70;//TODO make classes for game data
 
 	Vector3 topLeftCameraPoint;
 

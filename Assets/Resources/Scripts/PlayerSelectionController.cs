@@ -123,6 +123,7 @@ public class PlayerSelectionController : MonoBehaviour {
 
 	void OnDestroy(){
 		//when leaving the scene, add a player to game static variables
+		usedColors.Clear();
 		if (currentState != 0 && currentState >= maxState-1) {
 			GameVariables.players.Add (new Player (playerControllerId, currentColor));
 		}

@@ -51,9 +51,12 @@ public class DescriptionMenuController : MonoBehaviour {
 		for (int j = 0; j < nbPlayers; j++) {
 			//Player joins the game, change Debug.Loging and activate script on Gameobject
 			if (Input.GetKeyDown (xboxInputs[j].A)) {
-				arePlayersReady [j] = true;
+				if (!arePlayersReady [j]) {
+					nbReadyPlayers++;
+					arePlayersReady [j] = true;
+				}
 				associatedPlayerText [j].text = "Ready";
-				nbReadyPlayers++;
+
 				if (nbReadyPlayers == nbPlayers)
 					SceneManager.LoadScene ("GameLoop");
 			}

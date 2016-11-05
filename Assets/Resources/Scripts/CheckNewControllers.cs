@@ -17,7 +17,6 @@ public class CheckNewControllers : MonoBehaviour {
 	void Start () {
 		//Clear global variables when entering back in the scene
 		GameVariables.players.Clear ();
-
 		xboxInputs = new List<XboxInput> ();
 
 		playersSelector = new List<GameObject> ();
