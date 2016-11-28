@@ -26,22 +26,20 @@ public class PauseMenuController : MonoBehaviour {
 	}
 
 	public void resumeGame(){
-		SceneManager.UnloadScene ("PauseMenu");
 		//set back timeScale
 		Time.timeScale = previousTimeScale;
 		//re-enable all
 		foreach (MonoBehaviour p in disabledScripts) {
 			p.enabled = true;
 		}
-
+		DestroyImmediate (GameObject.Find ("Button"));
+		
+		SceneManager.UnloadScene ("PauseMenu");
 	}
 
 	public void quit(string sceneName){
 		Time.timeScale = previousTimeScale;
 		SceneManager.LoadScene (sceneName);
 	}
-
-
-
 }
 

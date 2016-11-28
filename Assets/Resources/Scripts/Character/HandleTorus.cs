@@ -20,33 +20,31 @@ public class HandleTorus : MonoBehaviour {
 			rendererParent = transform.FindChild ("Renderers").gameObject;
 
 		//Find object to be copied
-		GameObject playerRendererObject = rendererParent.transform.FindChild ("main").gameObject;
+		GameObject playerRendererObject = transform.FindChild ("mainRenderer").gameObject;
 
 		//Get renderer for smooter Update function
 		if (mainRenderer == null)// Inspector priority
 			mainRenderer = playerRendererObject.GetComponent<SpriteRenderer> ();
 
-		//add 8 copies of existing renderer
-		/*
-		 * Est-ce que c'est pas plus propre avec le test en moins ?
-		ArrayList indexes = ArrayList[-1,1];
-		foreach (int i in indexes) {
-			foreach (int j in indexes) {
-				GameObject newGO = Instantiate (playerRendererObject,playerRendererObject.transform.parent) as GameObject;
-				newGO.transform.localScale = playerRendererObject.transform.localScale;
-				newGO.transform.position = playerRendererObject.transform.position + new Vector3 (i * width, j * height, 0);
-				rendererCopies.Add (newGO.GetComponent<SpriteRenderer> ());
-			}
-		}
-		*/
+		////add 8 copies of existing renderer
+		//for (int i = -1; i <= 1; i++) {
+		//	for (int j = -1; j <= 1; j++) {
+		//		if (i != 0 || j != 0) {
+		//			GameObject newGO = Instantiate (playerRendererObject,playerRendererObject.transform.parent) as GameObject;
+		//			newGO.transform.localScale = playerRendererObject.transform.localScale;
+		//			newGO.transform.position = playerRendererObject.transform.position + new Vector3 (i * width, j * height, 0);
+		//			rendererCopies.Add (newGO.GetComponent<SpriteRenderer> ());
+		//		}
+		//	}
+		//}
+
+		//add 2 copies of existing renderer
 		for (int i = -1; i <= 1; i++) {
-			for (int j = -1; j <= 1; j++) {
-				if (i != 0 || j != 0) {
-					GameObject newGO = Instantiate (playerRendererObject,playerRendererObject.transform.parent) as GameObject;
+			if (i != 0 ) {
+				GameObject newGO = Instantiate (playerRendererObject,rendererParent.transform) as GameObject;
 					newGO.transform.localScale = playerRendererObject.transform.localScale;
-					newGO.transform.position = playerRendererObject.transform.position + new Vector3 (i * width, j * height, 0);
+					newGO.transform.position = playerRendererObject.transform.position + new Vector3 (i * width, 0, 0);
 					rendererCopies.Add (newGO.GetComponent<SpriteRenderer> ());
-				}
 			}
 		}
 	}
@@ -58,7 +56,7 @@ public class HandleTorus : MonoBehaviour {
 			//if mainRenderer is out of sight, switch his place with the current renderer
 			for (int i = 0; i < rendererCopies.Count; i++) {
 				if (rendererCopies [i].isVisible) {
-					rendererParent.transform.position = rendererCopies [i].transform.position;
+					transform.position = rendererCopies [i].transform.position;
 					break;
 				}
 			}

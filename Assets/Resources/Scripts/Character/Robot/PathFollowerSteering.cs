@@ -21,7 +21,7 @@ public class PathFollowerSteering : MonoBehaviour {
 		int nbPointInPath = Random.Range (3, 5);
 		path = new List<Vector3>();
 		for (int i = 0; i < nbPointInPath; i++) {
-			path.Add (new Vector3 (topLeftCameraPoint.x + Random.Range (0, width), topLeftCameraPoint.y + Random.Range (0, height), 0));
+			path.Add (GameCreator.randomPosOnMap());
 		}
 		NextPoint ();
 		timer = Time.time + delayTime;

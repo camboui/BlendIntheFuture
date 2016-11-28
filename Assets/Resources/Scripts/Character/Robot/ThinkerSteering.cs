@@ -37,7 +37,8 @@ public class ThinkerSteering : MonoBehaviour {
 	}
 
 	void NextPoint()
-	{ 
+	{
+		//TODO change this to make AI move only on map
 		wayPoint = new Vector3 (Random.Range (transform.position.x - Range, transform.position.x + Range), Random.Range (transform.position.y - Range, transform.position.y + Range), 0);
 	}
 

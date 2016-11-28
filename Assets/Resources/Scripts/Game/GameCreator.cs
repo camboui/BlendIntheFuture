@@ -8,12 +8,14 @@ public class GameCreator : MonoBehaviour {
 	public GameObject prefab_player;
 	public GameObject prefab_IA;
 	public Transform parentIA;
-	private int nbIA=70;//TODO make classes for game data
+	private int nbIA=5;//TODO make classes for game data
 	Vector3 topLeftCameraPoint;
-
+	private static Bounds mapBounds;
 
 	void Start () {
 		int i = 1;
+
+		mapBounds = GameObject.FindGameObjectWithTag ("Map").GetComponentInChildren<Collider2D> ().bounds;
 
 		float height = Camera.main.orthographicSize * 2;
 		float width = height * Camera.main.aspect; 
@@ -23,7 +25,8 @@ public class GameCreator : MonoBehaviour {
 		foreach (Human p in GameVariables.players) {
 			GameObject newGO = Instantiate (prefab_player) as GameObject;
 			newGO.GetComponentInChildren<HumanController> ().playerId = p.getJoystickId ();
-			newGO.transform.position = new Vector3 (topLeftCameraPoint.x + Random.Range (0, width), topLeftCameraPoint.y + Random.Range (0, height), 0);
+			newGO.transform.position = randomPosOnMap ();
+			newGO.transform.localScale = Vector3.one;
 			// DEBUG : SHOW COLOR
 			//newGO.GetComponentInChildren<SpriteRenderer> ().color = p.getColor ();
 			newGO.transform.name = "Player " + i;
@@ -41,10 +44,17 @@ public class GameCreator : MonoBehaviour {
 		for (int j = 0; j < nbIA; j++) {
 			GameObject newGO = Instantiate (prefab_IA, parentIA) as GameObject;
 			newGO.AddComponent (steerings [rand].GetType());
-			newGO.transform.position = new Vector3 (topLeftCameraPoint.x + Random.Range (0, width), topLeftCameraPoint.y + Random.Range (0, height), 0);
+			newGO.transform.position = randomPosOnMap ();
 			newGO.transform.name = "IA_" + i;
+			newGO.transform.localScale = Vector3.one;
 			i++;
 		}
+	}
+
+	public static Vector3 randomPosOnMap()
+	{
+		return new Vector3 (mapBounds.center.x+ Random.Range (-mapBounds.extents.x, mapBounds.extents.x), mapBounds.center.y + Random.Range (-mapBounds.extents.y, mapBounds.extents.y), 0);
+
 	}
 
 }
