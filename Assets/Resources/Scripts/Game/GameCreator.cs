@@ -8,7 +8,7 @@ public class GameCreator : MonoBehaviour {
 	public GameObject prefab_player;
 	public GameObject prefab_IA;
 	public Transform parentIA;
-	private int nbIA=5;//TODO make classes for game data
+	private int nbIA=30;//TODO make classes for game data
 	Vector3 topLeftCameraPoint;
 	private static Bounds mapBounds;
 
@@ -35,8 +35,8 @@ public class GameCreator : MonoBehaviour {
 
 		//Instantiate AIs
 		List<MonoBehaviour> steerings = new List<MonoBehaviour>();
-		steerings.Add (new PathFollowerSteering ());
-		steerings.Add (new ThinkerSteering());
+		//steerings.Add (new PathFollowerSteering ());
+		//steerings.Add (new ThinkerSteering());
 		steerings.Add (new WanderSteering());
 		int rand = Random.Range (0, steerings.Count);
 		Debug.Log ("steerings.Count = " + steerings.Count);

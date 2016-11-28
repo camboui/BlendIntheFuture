@@ -16,6 +16,13 @@ public class GameVariables : MonoBehaviour {
 
 	private static int nbColors;
 
+	void Awake()
+	{
+		QualitySettings.vSyncCount = 0;
+		Application.targetFrameRate = 60;
+	}
+
+
 	void Start () {
 		DontDestroyOnLoad (gameObject);
 		players = new List<Human> ();

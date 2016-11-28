@@ -11,8 +11,10 @@ public class WanderSteering : MonoBehaviour {
 	float timer;
 	float delayTime=2f;
 	bool ready;
+	Transform thisTransform;
 
 	void Start(){
+		thisTransform = transform;
 		NextPoint ();
 		timer = Time.time + delayTime;
 		if (Random.Range (0, 2) == 1)
@@ -27,8 +29,8 @@ public class WanderSteering : MonoBehaviour {
 			ready = true;
 
 		if (ready) {
-			if ((transform.position - wayPoint).magnitude > 0.1) {
-				transform.position += (wayPoint - transform.position).normalized * Speed * Time.deltaTime;	
+			if ((thisTransform.position - wayPoint).magnitude > 0.1) {
+				thisTransform.position += (wayPoint - thisTransform.position).normalized * Speed * Time.deltaTime;	
 			} else {
 				ready = false;
 				timer = 0;
@@ -40,7 +42,7 @@ public class WanderSteering : MonoBehaviour {
 	void NextPoint()
 	{ 
 		//TODO change this to make AI move only on map
-		wayPoint = new Vector3 (Random.Range (transform.position.x - Range, transform.position.x + Range), Random.Range (transform.position.y - Range, transform.position.y + Range), 0);
+		wayPoint = new Vector3 (Random.Range (thisTransform.position.x - Range, thisTransform.position.x + Range), Random.Range (thisTransform.position.y - Range, thisTransform.position.y + Range), 0);
 	}
 
 

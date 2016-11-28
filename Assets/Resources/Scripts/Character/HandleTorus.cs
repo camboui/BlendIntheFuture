@@ -8,10 +8,12 @@ public class HandleTorus : MonoBehaviour {
 	public GameObject rendererParent;
 
 	private List<SpriteRenderer> rendererCopies;
+	private List<Collider2D> colliderCopies;
 
 	// Use this for initialization
 	void Start () {
 		rendererCopies = new List<SpriteRenderer> ();
+		colliderCopies = new List<Collider2D> ();
 		//calculate camera view size
 		float height = Camera.main.orthographicSize * 2;
 		float width = height * Camera.main.aspect; 
@@ -40,11 +42,18 @@ public class HandleTorus : MonoBehaviour {
 
 		//add 2 copies of existing renderer
 		for (int i = -1; i <= 1; i++) {
-			if (i != 0 ) {
-				GameObject newGO = Instantiate (playerRendererObject,rendererParent.transform) as GameObject;
-					newGO.transform.localScale = playerRendererObject.transform.localScale;
-					newGO.transform.position = playerRendererObject.transform.position + new Vector3 (i * width, 0, 0);
-					rendererCopies.Add (newGO.GetComponent<SpriteRenderer> ());
+			if (i != 0) {
+				GameObject newGO = Instantiate (playerRendererObject, rendererParent.transform) as GameObject;
+				newGO.transform.localScale = playerRendererObject.transform.localScale;
+				newGO.transform.position = playerRendererObject.transform.position + new Vector3 (i * width, 0, 0);
+				rendererCopies.Add (newGO.GetComponent<SpriteRenderer> ());
+				colliderCopies.Add (newGO.GetComponent<Collider2D> ());
+			}
+		}
+
+		for (int i = 0; i < rendererCopies.Count; i++) {
+			if (!rendererCopies [i].isVisible) {
+				colliderCopies [i].enabled = false;
 			}
 		}
 	}
@@ -60,8 +69,15 @@ public class HandleTorus : MonoBehaviour {
 					break;
 				}
 			}
-
 		}
+
+		for (int i = 0; i < rendererCopies.Count; i++) {
+			if (!rendererCopies [i].isVisible) 
+				colliderCopies [i].enabled = false;
+			else
+				colliderCopies [i].enabled = true;
+		}
+
 
 	}
 }
