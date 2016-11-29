@@ -9,17 +9,12 @@ public class GameCreator : MonoBehaviour {
 	public GameObject prefab_IA;
 	public Transform parentIA;
 	private int nbIA=30;//TODO make classes for game data
-	Vector3 topLeftCameraPoint;
 	private static Bounds mapBounds;
 
 	void Start () {
 		int i = 1;
 
 		mapBounds = GameObject.FindGameObjectWithTag ("Map").GetComponentInChildren<Collider2D> ().bounds;
-
-		float height = Camera.main.orthographicSize * 2;
-		float width = height * Camera.main.aspect; 
-		topLeftCameraPoint = new Vector3 (-width / 2, -height / 2, 0) +  Camera.main.transform.position;
 
 		//Instantiate players
 		foreach (Human p in GameVariables.players) {

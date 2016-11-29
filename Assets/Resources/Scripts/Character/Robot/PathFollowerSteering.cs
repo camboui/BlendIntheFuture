@@ -12,12 +12,9 @@ public class PathFollowerSteering : MonoBehaviour {
 	bool ready;
 	List<Vector3> path;
 	int currentPoint = -1;
-	Vector3 topLeftCameraPoint;
 
 	void Start(){
-		float height = Camera.main.orthographicSize * 2;
-		float width = height * Camera.main.aspect; 
-		topLeftCameraPoint = new Vector3 (-width / 2, -height / 2, 0) +  Camera.main.transform.position;
+
 		int nbPointInPath = Random.Range (3, 5);
 		path = new List<Vector3>();
 		for (int i = 0; i < nbPointInPath; i++) {
