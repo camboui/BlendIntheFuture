@@ -31,6 +31,14 @@ public class Human {
 		return color;
 	}
 
+	public int getWins(){
+		return wins;
+	}
+
+	public int getDeaths(){
+		return deaths;
+	}
+
 	public void winRound () {
 		wins++;
 	}

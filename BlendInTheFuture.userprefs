@@ -5,10 +5,11 @@
       <File FileName="Assets\Resources\Scripts\Controller\PlayerSelectionController.cs" Line="125" Column="28" />
       <File FileName="Assets\Resources\Scripts\Utils\GameVariables.cs" Line="9" Column="35" />
       <File FileName="Assets\Resources\Scripts\Character\Human\Human.cs" Line="9" Column="22" />
-      <File FileName="Assets\Resources\Scripts\Game\RuleLastSurvivor.cs" Line="10" Column="3" />
-      <File FileName="Assets\Resources\Scripts\Game\GameCreator.cs" Line="8" Column="44" />
-      <File FileName="Assets\Resources\Scripts\Character\Human\HumanController.cs" Line="35" Column="22" />
-      <File FileName="Assets\Resources\Scripts\Character\Human\DeathHandler.cs" Line="19" Column="4" />
+      <File FileName="Assets\Resources\Scripts\Game\RuleLastSurvivor.cs" Line="10" Column="17" />
+      <File FileName="Assets\Resources\Scripts\Game\GameCreator.cs" Line="17" Column="41" />
+      <File FileName="Assets\Resources\Scripts\Character\Human\HumanController.cs" Line="37" Column="2" />
+      <File FileName="Assets\Resources\Scripts\Character\Human\DeathHandler.cs" Line="14" Column="1" />
+      <File FileName="Assets\Resources\Scripts\Controller\PauseMenuController.cs" Line="11" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

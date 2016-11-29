@@ -9,7 +9,7 @@ public class GameVariables : MonoBehaviour {
 	public static List<Human> players;
 	public static List<Color> availableColors;
 	public static List<String> customScripts;
-
+	public static int nbRound = 5;
 	public static int maxPlayers = 4;
 	public static int minPlayers = 1;
 

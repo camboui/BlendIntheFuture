@@ -32,8 +32,8 @@ public class GameCreator : MonoBehaviour {
 
 		//Instantiate AIs
 		List<MonoBehaviour> steerings = new List<MonoBehaviour>();
-		//steerings.Add (new PathFollowerSteering ());
-		//steerings.Add (new ThinkerSteering());
+		steerings.Add (new PathFollowerSteering ());
+		steerings.Add (new ThinkerSteering());
 		steerings.Add (new WanderSteering());
 		int rand = Random.Range (0, steerings.Count);
 		Debug.Log ("steerings.Count = " + steerings.Count);

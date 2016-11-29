@@ -54,6 +54,7 @@
      <Compile Include="Assets\Resources\Scripts\Character\Robot\WanderSteering.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\CheckNewControllers.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\DescriptionMenuController.cs" />
+     <Compile Include="Assets\Resources\Scripts\Controller\EndRoundMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\PauseMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\PlayerSelectionController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\XboxInput.cs" />
