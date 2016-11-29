@@ -9,6 +9,9 @@ public class GameVariables : MonoBehaviour {
 	public static List<Human> players;
 	public static List<Color> availableColors;
 	public static List<String> customScripts;
+	public static GameObject selectedMode;
+	public static GameObject [] modes;
+
 	public static int nbRound = 5;
 	public static int maxPlayers = 4;
 	public static int minPlayers = 1;
@@ -44,6 +47,7 @@ public class GameVariables : MonoBehaviour {
 		};
 		nbColors = availableColors.Count;
 
+		modes = Resources.LoadAll<GameObject> ("Prefabs/Modes");
 		//This is scene 0, load scene 1
 		SceneManager.LoadScene (1);
 	}

@@ -55,13 +55,16 @@
      <Compile Include="Assets\Resources\Scripts\Controller\CheckNewControllers.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\DescriptionMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\EndRoundMenuController.cs" />
+     <Compile Include="Assets\Resources\Scripts\Controller\ModeSelectionController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\PauseMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\PlayerSelectionController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\XboxInput.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\ForceMapFitScreen.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\GameCreator.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\RuleLastSurvivor.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\RuleOneKillOnePoint.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\GameVariables.cs" />
+     <Compile Include="Assets\Resources\Scripts\Utils\ModeSceneLoader.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\SceneLoader.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\UpdateTimer.cs" />
      <Compile Include="Assets\Resources\Scripts\Weapons\Knife.cs" />

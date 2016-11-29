@@ -18,6 +18,13 @@ public class HumanController : MonoBehaviour
 	private XboxInput xboxInput;
 	void Start()
 	{
+		// clear round values for this player
+		foreach(Human current in GameVariables.players){
+			if (current.getJoystickId () == playerId) {
+				current.startNewRound (); 
+				break;
+			}
+		}
 		pausedGame = false;
 		xboxInput = new XboxInput (playerId);
 		mapCollider = GameObject.FindGameObjectWithTag ("Map").GetComponentInChildren<Collider2D> ();

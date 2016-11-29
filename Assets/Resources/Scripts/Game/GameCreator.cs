@@ -47,6 +47,10 @@ public class GameCreator : MonoBehaviour {
 
 			i++;
 		}
+			
+		GameObject rules = Instantiate (GameVariables.selectedMode) as GameObject;
+		rules.transform.FindChild ("Graphic").gameObject.SetActive (false);
+		rules.transform.FindChild ("Rules").gameObject.SetActive (true);
 	}
 
 	public static Vector3 randomPosOnMap()

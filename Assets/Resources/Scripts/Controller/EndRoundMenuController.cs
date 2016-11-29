@@ -9,8 +9,10 @@ public class EndRoundMenuController : MonoBehaviour {
 	public Transform playerScoreContainer;
 	public GameObject pointsContainer;
 	public GameObject onePoint;
+	public bool wasLastRound;
 
 	void Start () {
+		wasLastRound = false;
 		foreach (Human current in GameVariables.players) {
 			GameObject newPointsContainer = Instantiate (pointsContainer,playerScoreContainer) as GameObject;
 			newPointsContainer.transform.localScale = Vector3.one;
@@ -18,6 +20,8 @@ public class EndRoundMenuController : MonoBehaviour {
 			newPointsContainer.GetComponent<Text> ().color = current.getColor ();
 
 			int currentScore = current.getWins ();
+			if (currentScore >= GameVariables.nbRound)
+				wasLastRound = true;
 			for (int i = 0; i < GameVariables.nbRound; i++) {
 				GameObject newPoint = Instantiate (onePoint,newPointsContainer.transform) as GameObject;
 				newPoint.transform.localScale = Vector3.one;
@@ -26,12 +30,22 @@ public class EndRoundMenuController : MonoBehaviour {
 					newPoint.GetComponent<Image> ().color = Color.yellow;
 					currentScore--;
 				}
+
 			}
+		}
+
+		if (wasLastRound) {
+			GameObject.Find ("Text Next Match").GetComponent<Text> ().text = "Rematch";
+			//Make special anim
 		}
 	}
 
 	public void startNextRound(){
-		SceneManager.LoadScene ("GameLoop");
+		if(!wasLastRound)
+			SceneManager.LoadScene ("GameLoop");
+		else
+			SceneManager.LoadScene ("ModeSelectionMenu");
+		
 	}
 
 	public void goToMainMenu(){
