@@ -13,12 +13,14 @@ public class EndRoundMenuController : MonoBehaviour {
 
 	void Start () {
 		wasLastRound = false;
+		int playerNb=1;
 		foreach (Human current in GameVariables.players) {
 			GameObject newPointsContainer = Instantiate (pointsContainer,playerScoreContainer) as GameObject;
 			newPointsContainer.transform.localScale = Vector3.one;
-			newPointsContainer.GetComponent<Text> ().text = "P" + current.getJoystickId ();
+			newPointsContainer.GetComponent<Text> ().text = "P" + playerNb;
 			newPointsContainer.GetComponent<Text> ().color = current.getColor ();
 
+			playerNb++;
 			int currentScore = current.getWins ();
 			if (currentScore >= GameVariables.nbRound)
 				wasLastRound = true;
