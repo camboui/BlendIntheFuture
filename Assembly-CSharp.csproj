@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Resources\Scripts\Character\HandleTorus.cs" />
+     <Compile Include="Assets\Resources\Scripts\Character\Human\DeathHandler.cs" />
      <Compile Include="Assets\Resources\Scripts\Character\Human\Human.cs" />
      <Compile Include="Assets\Resources\Scripts\Character\Human\HumanController.cs" />
      <Compile Include="Assets\Resources\Scripts\Character\Robot\PathFollowerSteering.cs" />
@@ -58,6 +59,7 @@
      <Compile Include="Assets\Resources\Scripts\Controller\XboxInput.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\ForceMapFitScreen.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\GameCreator.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\RuleLastSurvivor.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\GameVariables.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\SceneLoader.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\UpdateTimer.cs" />

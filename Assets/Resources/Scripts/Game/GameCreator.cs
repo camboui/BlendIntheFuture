@@ -4,7 +4,8 @@ using System.Collections.Generic;
 //using UnityEditor;
 
 public class GameCreator : MonoBehaviour {
-
+	
+	public static List<Human> remainingPlayers;
 	public GameObject prefab_player;
 	public GameObject prefab_IA;
 	public Transform parentIA;
@@ -13,7 +14,8 @@ public class GameCreator : MonoBehaviour {
 
 	void Start () {
 		int i = 1;
-
+		remainingPlayers = new List<Human> ();
+		remainingPlayers.AddRange(GameVariables.players);
 		mapBounds = GameObject.FindGameObjectWithTag ("Map").GetComponentInChildren<Collider2D> ().bounds;
 
 		//Instantiate players
