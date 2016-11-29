@@ -38,7 +38,12 @@ public class PathFollowerSteering : MonoBehaviour {
 
 		if (ready) {
 			if ((transform.position - wayPoint).magnitude > 1) {
-				transform.position += (wayPoint - transform.position).normalized * Speed * Time.deltaTime;	
+				Vector3 nextPos = (wayPoint - transform.position).normalized * Speed * Time.deltaTime;	
+				transform.position += nextPos;
+				if (nextPos.x < 0)
+					transform.localScale = new Vector3(-1,1,1);
+				else
+					transform.localScale = new Vector3(1,1,1);
 			} else {
 				ready = false;
 				timer = 0;

@@ -25,11 +25,11 @@ public class GameCreator : MonoBehaviour {
 		foreach (Human p in GameVariables.players) {
 			GameObject newGO = Instantiate (prefab_player) as GameObject;
 			newGO.GetComponentInChildren<HumanController> ().playerId = p.getJoystickId ();
-			newGO.transform.position = randomPosOnMap ();
-			newGO.transform.localScale = Vector3.one;
 			// DEBUG : SHOW COLOR
 			//newGO.GetComponentInChildren<SpriteRenderer> ().color = p.getColor ();
 			newGO.transform.name = "Player " + i;
+			newGO.transform.position = randomPosOnMap ();
+			newGO.transform.position -= newGO.transform.FindChild ("GroundCheck").transform.localPosition;
 			i++;
 		}
 
@@ -45,8 +45,9 @@ public class GameCreator : MonoBehaviour {
 			GameObject newGO = Instantiate (prefab_IA, parentIA) as GameObject;
 			newGO.AddComponent (steerings [rand].GetType());
 			newGO.transform.position = randomPosOnMap ();
+			newGO.transform.position -= newGO.transform.FindChild ("GroundCheck").transform.localPosition;
 			newGO.transform.name = "IA_" + i;
-			newGO.transform.localScale = Vector3.one;
+
 			i++;
 		}
 	}

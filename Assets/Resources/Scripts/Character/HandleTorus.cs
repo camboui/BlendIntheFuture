@@ -22,7 +22,7 @@ public class HandleTorus : MonoBehaviour {
 			rendererParent = transform.FindChild ("Renderers").gameObject;
 
 		//Find object to be copied
-		GameObject playerRendererObject = transform.FindChild ("mainRenderer").gameObject;
+		GameObject playerRendererObject = rendererParent.transform.FindChild ("mainRenderer").gameObject;
 
 		//Get renderer for smooter Update function
 		if (mainRenderer == null)// Inspector priority

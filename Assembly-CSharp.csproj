@@ -61,6 +61,7 @@
      <Compile Include="Assets\Resources\Scripts\Utils\GameVariables.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\SceneLoader.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\UpdateTimer.cs" />
+     <Compile Include="Assets\Resources\Scripts\Weapons\Knife.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

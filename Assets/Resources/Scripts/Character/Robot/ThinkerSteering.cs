@@ -27,10 +27,15 @@ public class ThinkerSteering : MonoBehaviour {
 
 		if (ready) {
 			if ((transform.position - wayPoint).magnitude > 3) {
-				transform.position += (wayPoint - transform.position).normalized * Speed * Time.deltaTime;	
+				Vector3 nextPos = (wayPoint - transform.position).normalized * Speed * Time.deltaTime;	
+				transform.position += nextPos;
+				if (nextPos.x < 0)
+					transform.localScale = new Vector3(-1,1,1);
+				else
+					transform.localScale = new Vector3(1,1,1);
 			} else {
 				ready = false;
-				timer = Time.time+Random.Range (1,3);
+				timer = Time.time+Random.Range (0f,3f);
 				NextPoint ();
 			}
 		}

@@ -30,7 +30,12 @@ public class WanderSteering : MonoBehaviour {
 
 		if (ready) {
 			if ((thisTransform.position - wayPoint).magnitude > 0.1) {
-				thisTransform.position += (wayPoint - thisTransform.position).normalized * Speed * Time.deltaTime;	
+				Vector3 nextPos = (wayPoint - thisTransform.position).normalized * Speed * Time.deltaTime;	
+				if (nextPos.x < 0)
+					transform.localScale = new Vector3(-1,1,1);
+				else
+					transform.localScale = new Vector3(1,1,1);
+				thisTransform.position += nextPos;
 			} else {
 				ready = false;
 				timer = 0;
