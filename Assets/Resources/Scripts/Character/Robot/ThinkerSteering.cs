@@ -10,8 +10,14 @@ public class ThinkerSteering : MonoBehaviour {
 	float timer;
 	float delayTime=2f;
 	bool ready;
+	private Vector3 leftOrientationScale;
+	private Vector3 rightOrientationScale;
 
 	void Start(){
+		leftOrientationScale = transform.localScale;
+		rightOrientationScale = transform.localScale;
+		rightOrientationScale.x = rightOrientationScale.x * -1;
+
 		NextPoint ();
 		timer = Time.time + delayTime;
 		if (Random.Range (0, 2) == 1)
@@ -30,9 +36,9 @@ public class ThinkerSteering : MonoBehaviour {
 				Vector3 nextPos = (wayPoint - transform.position).normalized * Speed * Time.deltaTime;	
 				transform.position += nextPos;
 				if (nextPos.x < 0)
-					transform.localScale = new Vector3(-1,1,1);
+					transform.localScale = rightOrientationScale;
 				else
-					transform.localScale = new Vector3(1,1,1);
+					transform.localScale = leftOrientationScale;
 			} else {
 				ready = false;
 				timer = Time.time+Random.Range (0f,3f);

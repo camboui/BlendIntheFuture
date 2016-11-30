@@ -12,8 +12,14 @@ public class PathFollowerSteering : MonoBehaviour {
 	bool ready;
 	List<Vector3> path;
 	int currentPoint = -1;
+	private Vector3 leftOrientationScale;
+	private Vector3 rightOrientationScale;
 
 	void Start(){
+
+		leftOrientationScale = transform.localScale;
+		rightOrientationScale = transform.localScale;
+		rightOrientationScale.x = rightOrientationScale.x * -1;
 
 		int nbPointInPath = Random.Range (3, 5);
 		path = new List<Vector3>();
@@ -38,9 +44,9 @@ public class PathFollowerSteering : MonoBehaviour {
 				Vector3 nextPos = (wayPoint - transform.position).normalized * Speed * Time.deltaTime;	
 				transform.position += nextPos;
 				if (nextPos.x < 0)
-					transform.localScale = new Vector3(-1,1,1);
+					transform.localScale = rightOrientationScale;
 				else
-					transform.localScale = new Vector3(1,1,1);
+					transform.localScale = leftOrientationScale;
 			} else {
 				ready = false;
 				timer = 0;

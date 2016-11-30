@@ -11,9 +11,15 @@ public class WanderSteering : MonoBehaviour {
 	float timer;
 	float delayTime=2f;
 	bool ready;
-	Transform thisTransform;
+	private Transform thisTransform;
+	private Vector3 leftOrientationScale;
+	private Vector3 rightOrientationScale;
 
 	void Start(){
+		leftOrientationScale = transform.localScale;
+		rightOrientationScale = transform.localScale;
+		rightOrientationScale.x = rightOrientationScale.x * -1;
+
 		thisTransform = transform;
 		NextPoint ();
 		timer = Time.time + delayTime;
@@ -32,9 +38,9 @@ public class WanderSteering : MonoBehaviour {
 			if ((thisTransform.position - wayPoint).magnitude > 0.1) {
 				Vector3 nextPos = (wayPoint - thisTransform.position).normalized * Speed * Time.deltaTime;	
 				if (nextPos.x < 0)
-					transform.localScale = new Vector3(-1,1,1);
+					transform.localScale = rightOrientationScale;
 				else
-					transform.localScale = new Vector3(1,1,1);
+					transform.localScale = leftOrientationScale;
 				thisTransform.position += nextPos;
 			} else {
 				ready = false;

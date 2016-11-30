@@ -14,6 +14,8 @@ public class HumanController : MonoBehaviour
 	private Transform groundPosition;
 	public List<GameObject> weapons;
 	public Transform rendererContainer;
+	private Vector3 leftOrientationScale;
+	private Vector3 rightOrientationScale;
 
 	private XboxInput xboxInput;
 	void Start()
@@ -25,6 +27,9 @@ public class HumanController : MonoBehaviour
 				break;
 			}
 		}
+		leftOrientationScale = transform.localScale;
+		rightOrientationScale = transform.localScale;
+		rightOrientationScale.x = rightOrientationScale.x * -1;
 		pausedGame = false;
 		xboxInput = new XboxInput (playerId);
 		mapCollider = GameObject.FindGameObjectWithTag ("Map").GetComponentInChildren<Collider2D> ();
@@ -56,9 +61,9 @@ public class HumanController : MonoBehaviour
 		if (movementVector.x != 0.0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + movementVector))) {
 			transform.position += movementVector;
 			if (movementVector.x < 0)
-				transform.localScale = new Vector3(-1,1,1);
+				transform.localScale = rightOrientationScale;
 			else
-				transform.localScale = new Vector3(1,1,1);
+				transform.localScale = leftOrientationScale;
 			
 			movementVector = Vector3.zero;
 		}
