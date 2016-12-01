@@ -19,6 +19,10 @@ public class ModeSceneLoader : MonoBehaviour {
 			}
 		}
 
+		//Reset all player values
+		foreach(Human current in GameVariables.players){
+			current.rematchClear ();
+		}
 		SceneManager.LoadScene (sceneName);
 	}
 

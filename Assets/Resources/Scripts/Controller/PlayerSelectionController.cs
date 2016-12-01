@@ -12,7 +12,6 @@ public class PlayerSelectionController : MonoBehaviour {
 
 	public int playerControllerId;
 
-
 	private bool changedRecently;
 	private Color currentColor;
 	private List<Image> imagesToColor;

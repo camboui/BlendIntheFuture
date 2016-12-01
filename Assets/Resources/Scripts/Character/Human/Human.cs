@@ -35,6 +35,13 @@ public class Human {
 		killedThisRound.Clear ();
 	}
 
+	public void rematchClear(){
+		wins = 0;
+		deaths = 0;
+		killedThisRound.Clear ();
+	}
+
+
 	public int getJoystickId(){
 		return joystickId;
 	}
