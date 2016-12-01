@@ -49,9 +49,10 @@
      <Compile Include="Assets\Resources\Scripts\Character\Human\DeathHandler.cs" />
      <Compile Include="Assets\Resources\Scripts\Character\Human\Human.cs" />
      <Compile Include="Assets\Resources\Scripts\Character\Human\HumanController.cs" />
-     <Compile Include="Assets\Resources\Scripts\Character\Robot\PathFollowerSteering.cs" />
-     <Compile Include="Assets\Resources\Scripts\Character\Robot\ThinkerSteering.cs" />
-     <Compile Include="Assets\Resources\Scripts\Character\Robot\WanderSteering.cs" />
+     <Compile Include="Assets\Resources\Scripts\Character\Robot\SteeringAbstract.cs" />
+     <Compile Include="Assets\Resources\Scripts\Character\Robot\Steerings\PathFollowerSteering.cs" />
+     <Compile Include="Assets\Resources\Scripts\Character\Robot\Steerings\ThinkerSteering.cs" />
+     <Compile Include="Assets\Resources\Scripts\Character\Robot\Steerings\WanderSteering.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\CheckNewControllers.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\DescriptionMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\EndRoundMenuController.cs" />

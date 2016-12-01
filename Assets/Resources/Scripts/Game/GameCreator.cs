@@ -29,18 +29,12 @@ public class GameCreator : MonoBehaviour {
 			newGO.transform.position -= newGO.transform.FindChild ("GroundCheck").transform.localPosition;
 			i++;
 		}
-
-		//Instantiate AIs
-		List<MonoBehaviour> steerings = new List<MonoBehaviour>();
-		steerings.Add (new PathFollowerSteering ());
-		steerings.Add (new ThinkerSteering());
-		steerings.Add (new WanderSteering());
-		int rand = Random.Range (0, steerings.Count);
-		Debug.Log ("steerings.Count = " + steerings.Count);
-		Debug.Log ("rand = " + rand);
+			
+		int rand = Random.Range (0, GameVariables.steeringScripts.Count);
+		Debug.Log ("Steering type = " + GameVariables.steeringScripts[rand]);
 		for (int j = 0; j < nbIA; j++) {
 			GameObject newGO = Instantiate (prefab_IA, parentIA) as GameObject;
-			newGO.AddComponent (steerings [rand].GetType());
+			newGO.AddComponent(System.Type.GetType(GameVariables.steeringScripts[rand]));
 			newGO.transform.position = randomPosOnMap ();
 			newGO.transform.position -= newGO.transform.FindChild ("GroundCheck").transform.localPosition;
 			newGO.transform.name = "IA_" + i;

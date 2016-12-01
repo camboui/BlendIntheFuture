@@ -9,13 +9,14 @@ public class GameVariables : MonoBehaviour {
 	public static List<Human> players;
 	public static List<Color> availableColors;
 	public static List<String> customScripts;
+	public static List<String>steeringScripts;
 	public static GameObject selectedMode;
 	public static GameObject [] modes;
+
 
 	public static int nbRound = 5;
 	public static int maxPlayers = 4;
 	public static int minPlayers = 1;
-
 
 	private static int nbColors;
 
@@ -48,6 +49,10 @@ public class GameVariables : MonoBehaviour {
 		nbColors = availableColors.Count;
 
 		modes = Resources.LoadAll<GameObject> ("Prefabs/Modes");
+		steeringScripts = new List<String> ();
+		foreach (UnityEngine.Object o in Resources.LoadAll<UnityEngine.Object> ("Scripts/Character/Robot/Steerings")) {
+			steeringScripts.Add (o.name);
+		}
 		//This is scene 0, load scene 1
 		SceneManager.LoadScene (1);
 	}
