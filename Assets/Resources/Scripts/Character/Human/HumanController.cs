@@ -12,10 +12,10 @@ public class HumanController : MonoBehaviour
 	public float movementSpeed = 1f;
 	private Collider2D mapCollider;
 	private Transform groundPosition;
-	public List<GameObject> weapons;
 	public Transform rendererContainer;
 	private Vector3 leftOrientationScale;
 	private Vector3 rightOrientationScale;
+	private Knife knifeWeapon;
 
 	private XboxInput xboxInput;
 	void Start()
@@ -36,23 +36,15 @@ public class HumanController : MonoBehaviour
 		groundPosition = transform.FindChild ("GroundCheck");
 		rendererContainer = transform.FindChild ("Renderers");
 
-		//to activate all weapons simultaneously
-		foreach (Transform child in rendererContainer) {
-			weapons.Add (child.FindChild ("Weapon").gameObject);
-		}
+		knifeWeapon= gameObject.AddComponent<Knife>();
+		knifeWeapon.initialiseWeapon (0.5f, rendererContainer);
 	}
 
 	//Script is disabled on start
 	void OnEnable(){
 		pausedGame = false;
 	}
-
-	IEnumerator deactivateWeapon() {
-		yield return new WaitForSeconds (0.5f);
-		foreach (GameObject weapon in weapons) {
-			weapon.SetActive (false);
-		}
-	}
+		
 
 	void Update()
 	{
@@ -76,13 +68,8 @@ public class HumanController : MonoBehaviour
 		}
 
 		if (Input.GetKeyDown (xboxInput.A)) {
-			if (weapons [0].activeSelf == false) {
-				Debug.Log ("P" + playerId + " : A");
-				foreach (GameObject weapon in weapons) {
-					weapon.SetActive (true);
-				}
-				StartCoroutine ("deactivateWeapon");
-			}
+			Debug.Log ("P" + playerId + " : A");
+			knifeWeapon.use ();
 		}
 		if (Input.GetKeyDown (xboxInput.B)) {
 			Debug.Log ("P" + playerId + " : B");      
