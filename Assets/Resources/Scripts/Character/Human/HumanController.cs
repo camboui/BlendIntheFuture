@@ -16,6 +16,7 @@ public class HumanController : MonoBehaviour
 	private Vector3 leftOrientationScale;
 	private Vector3 rightOrientationScale;
 	private Knife knifeWeapon;
+	private Rigidbody2D rgdby;
 
 	private XboxInput xboxInput;
 	void Start()
@@ -38,6 +39,8 @@ public class HumanController : MonoBehaviour
 
 		knifeWeapon= gameObject.AddComponent<Knife>();
 		knifeWeapon.initialiseWeapon (0.5f, rendererContainer);
+
+		rgdby = gameObject.GetComponent<Rigidbody2D> ();
 	}
 
 	//Script is disabled on start
@@ -50,22 +53,20 @@ public class HumanController : MonoBehaviour
 	{
 		//X and Y axis are defined in Edit/Project Settings/Input
 		movementVector.x = xboxInput.getXaxis () * movementSpeed * Time.deltaTime;
-		if (movementVector.x != 0.0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + movementVector))) {
-			transform.position += movementVector;
+		if (movementVector.x!=0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + new Vector3(movementVector.x,0,0))))  {
+			rgdby.MovePosition (transform.position + movementVector);
+
 			if (movementVector.x < 0)
 				transform.localScale = rightOrientationScale;
 			else
 				transform.localScale = leftOrientationScale;
-			
-			movementVector = Vector3.zero;
 		}
-		
+
 		movementVector.y = xboxInput.getYaxis () * movementSpeed * Time.deltaTime;
-		if (mapCollider.OverlapPoint ((Vector2)(groundPosition.position + movementVector))) {
-			//	movementVector.z = movementVector.y;
-			transform.position += movementVector;
-			movementVector = Vector3.zero;
-		}
+		if (movementVector.y!=0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + new Vector3(0,movementVector.y,0))))  {
+			rgdby.MovePosition (transform.position + movementVector);
+		} 
+		
 
 		if (Input.GetKeyDown (xboxInput.A)) {
 			Debug.Log ("P" + playerId + " : A");
