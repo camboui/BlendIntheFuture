@@ -13,6 +13,8 @@ public class GameVariables : MonoBehaviour {
 	public static GameObject selectedMode;
 	public static GameObject [] modes;
 
+	public static int musicVol;
+	public static int sfxVol;
 
 	public static int nbRound = 5;
 	public static int maxPlayers = 4;
@@ -31,6 +33,9 @@ public class GameVariables : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 		players = new List<Human> ();
 		customScripts = new List<String> ();
+
+		musicVol = 1;
+		sfxVol = 1;
 
 		//Used to pause the game by disabling all hand-made script in GameLoop
 		foreach (UnityEngine.Object o in  Resources.LoadAll ("Scripts")) {
