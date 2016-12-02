@@ -21,7 +21,7 @@ public class GameCreator : MonoBehaviour {
 		//Instantiate players
 		foreach (Human p in GameVariables.players) {
 			GameObject newGO = Instantiate (prefab_player) as GameObject;
-			newGO.GetComponentInChildren<HumanController> ().playerId = p.getJoystickId ();
+			newGO.GetComponentInChildren<HumanController> ().human = p;
 			// DEBUG : SHOW COLOR
 			//newGO.GetComponentInChildren<SpriteRenderer> ().color = p.getColor ();
 			newGO.transform.name = "Player " + i;

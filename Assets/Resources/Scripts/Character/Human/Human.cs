@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
+[Serializable]
 public class Human {
 
-	List<int> killedThisRound;
-	int joystickId;
-	private int wins;
-	private int deaths;
-	private Color color;
+	[SerializeField] private List<int> killedThisRound;
+	[SerializeField] private int joystickId;
+	[SerializeField] private int wins;
+	[SerializeField] private int deaths;
+	[SerializeField] private Color color;
 
 
 	public Human(int joyId, Color c){

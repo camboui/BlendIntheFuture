@@ -12,7 +12,7 @@ public class DeathHandler : MonoBehaviour {
 
 	void OnDestroy(){
 		foreach (Human current in GameCreator.remainingPlayers) {
-			if (current.getJoystickId()== humanController.playerId) {
+			if (current.getJoystickId()== humanController.human.getJoystickId()) {
 				GameCreator.remainingPlayers.Remove (current);
 				break;
 			}
