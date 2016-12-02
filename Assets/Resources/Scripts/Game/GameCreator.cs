@@ -27,6 +27,7 @@ public class GameCreator : MonoBehaviour {
 			newGO.transform.name = "Player " + i;
 			newGO.transform.position = randomPosOnMap ();
 			newGO.transform.position -= newGO.transform.FindChild ("GroundCheck").transform.localPosition;
+			newGO.AddComponent<Night> ().enabled = false;
 			i++;
 		}
 			

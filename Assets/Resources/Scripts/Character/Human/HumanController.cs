@@ -17,6 +17,9 @@ public class HumanController : MonoBehaviour
 	private Vector3 rightOrientationScale;
 	private Knife knifeWeapon;
 
+	public MonoBehaviour bonus;
+	private bool bonusUsed;
+
 	private XboxInput xboxInput;
 	void Start()
 	{
@@ -38,6 +41,9 @@ public class HumanController : MonoBehaviour
 
 		knifeWeapon= gameObject.AddComponent<Knife>();
 		knifeWeapon.initialiseWeapon (0.5f, rendererContainer);
+
+		bonus.enabled = false;
+		bonusUsed = false;
 	}
 
 	//Script is disabled on start
@@ -72,7 +78,11 @@ public class HumanController : MonoBehaviour
 			knifeWeapon.use ();
 		}
 		if (Input.GetKeyDown (xboxInput.B)) {
-			Debug.Log ("P" + playerId + " : B");      
+			Debug.Log ("P" + playerId + " : B"); 
+			if (!bonusUsed) {
+				bonus.enabled = true;
+				bonusUsed = true;
+			}
 		}
 		if (Input.GetKeyDown (xboxInput.X)) {
 			Debug.Log ("P" + playerId + " : X");      
