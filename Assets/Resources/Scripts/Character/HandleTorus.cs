@@ -11,7 +11,7 @@ public class HandleTorus : MonoBehaviour {
 	private List<Collider2D> colliderCopies;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		rendererCopies = new List<SpriteRenderer> ();
 		colliderCopies = new List<Collider2D> ();
 		//calculate camera view size

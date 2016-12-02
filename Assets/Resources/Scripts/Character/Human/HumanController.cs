@@ -17,6 +17,7 @@ public class HumanController : MonoBehaviour
 	private Vector3 rightOrientationScale;
 	private Knife knifeWeapon;
 	private Rigidbody2D rgdby;
+	private Animator[] animators;
 
 	private XboxInput xboxInput;
 	void Start()
@@ -28,6 +29,7 @@ public class HumanController : MonoBehaviour
 				break;
 			}
 		}
+		//Set orientation
 		leftOrientationScale = transform.localScale;
 		rightOrientationScale = transform.localScale;
 		rightOrientationScale.x = rightOrientationScale.x * -1;
@@ -41,7 +43,16 @@ public class HumanController : MonoBehaviour
 		knifeWeapon.initialiseWeapon (0.5f, rendererContainer);
 
 		rgdby = gameObject.GetComponent<Rigidbody2D> ();
+		animators = rendererContainer.GetComponentsInChildren <Animator>();
 	}
+
+	private void changeAllAnimatorsBool(string boolname, bool value)
+	{
+		foreach (Animator anm in animators) {
+			anm.SetBool (boolname,value);
+		}
+	}
+
 
 	//Script is disabled on start
 	void OnEnable(){
@@ -55,7 +66,7 @@ public class HumanController : MonoBehaviour
 		movementVector.x = xboxInput.getXaxis () * movementSpeed * Time.deltaTime;
 		if (movementVector.x!=0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + new Vector3(movementVector.x,0,0))))  {
 			rgdby.MovePosition (transform.position + movementVector);
-
+			changeAllAnimatorsBool ("isWalking", true);
 			if (movementVector.x < 0)
 				transform.localScale = rightOrientationScale;
 			else
@@ -65,7 +76,13 @@ public class HumanController : MonoBehaviour
 		movementVector.y = xboxInput.getYaxis () * movementSpeed * Time.deltaTime;
 		if (movementVector.y!=0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + new Vector3(0,movementVector.y,0))))  {
 			rgdby.MovePosition (transform.position + movementVector);
+			changeAllAnimatorsBool ("isWalking", true);
 		} 
+
+		if (movementVector.x == 0f && movementVector.y == 0f) {
+			changeAllAnimatorsBool ("isWalking", false);
+		}
+
 		
 
 		if (Input.GetKeyDown (xboxInput.A)) {
@@ -73,7 +90,7 @@ public class HumanController : MonoBehaviour
 			knifeWeapon.use ();
 		}
 		if (Input.GetKeyDown (xboxInput.B)) {
-			Debug.Log ("P" + playerId + " : B");      
+			//changeAllAnimatorsBool ("isShooting", true);   
 		}
 		if (Input.GetKeyDown (xboxInput.X)) {
 			Debug.Log ("P" + playerId + " : X");      
