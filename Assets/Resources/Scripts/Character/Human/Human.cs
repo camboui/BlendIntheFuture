@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
+[Serializable]
 public class Human {
 
-	List<int> killedThisRound;
-	int joystickId;
-	private int wins;
-	private int deaths;
-	private Color color;
+	[SerializeField] private List<int> killedThisRound;
+	[SerializeField] private int joystickId;
+	[SerializeField] private int wins;
+	[SerializeField] private int deaths;
+	[SerializeField] private Color color;
+	[SerializeField] private GameObject bonus;
 
 
-	public Human(int joyId, Color c){
+	public Human(int joyId, Color c, GameObject b){
 		killedThisRound = new List<int> ();
 		joystickId = joyId;
 		wins = 0;
 		deaths = 0;
 		color = c;
+		bonus = b;
 	}
 
 	public Human(){
@@ -56,6 +60,10 @@ public class Human {
 
 	public int getDeaths(){
 		return deaths;
+	}
+
+	public GameObject getBonus(){
+		return bonus;
 	}
 
 	public void winRound () {

@@ -60,11 +60,17 @@
      <Compile Include="Assets\Resources\Scripts\Controller\PauseMenuController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\PlayerSelectionController.cs" />
      <Compile Include="Assets\Resources\Scripts\Controller\XboxInput.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\Bonus\Bonus_Abstract.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\Bonus\Night.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\ForceMapFitScreen.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\GameCreator.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\Rules\RuleLastSurvivor.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\Rules\RuleOneKillOnePoint.cs" />
+     <Compile Include="Assets\Resources\Scripts\Sounds\SetEFXVolume.cs" />
+     <Compile Include="Assets\Resources\Scripts\Sounds\SetMusicVolume.cs" />
+     <Compile Include="Assets\Resources\Scripts\UI\ClickToLoadAsync.cs" />
+     <Compile Include="Assets\Resources\Scripts\UI\QuitOnEnter.cs" />
+     <Compile Include="Assets\Resources\Scripts\UI\SelectOnInput.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\GameVariables.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\ModeSceneLoader.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\SceneLoader.cs" />

@@ -1,22 +1,28 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 
-public class Night : MonoBehaviour {
+public class Night : Bonus_Abstract {
 
-	public GameObject night;
+
 	public float emergenceTime;
 	public float nightTime;
 	public float dissipationTime;
 
+	public Image nightImage;
+
 	private float opacity;
 	private float currentTime;
 	private Color nightColor;
+
+
+
 	// Use this for initialization
 	void Start () {
 		opacity = 255;
 		currentTime = 0;
-		nightColor = night.GetComponent<SpriteRenderer>().color;
+		nightColor = nightImage.GetComponent<SpriteRenderer>().color;
 		nightColor.a = opacity;
 	}
 	

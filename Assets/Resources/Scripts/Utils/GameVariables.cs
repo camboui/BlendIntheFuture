@@ -12,7 +12,10 @@ public class GameVariables : MonoBehaviour {
 	public static List<String>steeringScripts;
 	public static GameObject selectedMode;
 	public static GameObject [] modes;
+	public static List<GameObject> bonus;
 
+	public static int musicVol;
+	public static int sfxVol;
 
 	public static int nbRound = 5;
 	public static int maxPlayers = 4;
@@ -31,6 +34,9 @@ public class GameVariables : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 		players = new List<Human> ();
 		customScripts = new List<String> ();
+
+		musicVol = 1;
+		sfxVol = 1;
 
 		//Used to pause the game by disabling all hand-made script in GameLoop
 		foreach (UnityEngine.Object o in  Resources.LoadAll ("Scripts")) {
@@ -53,6 +59,11 @@ public class GameVariables : MonoBehaviour {
 		foreach (UnityEngine.Object o in Resources.LoadAll<UnityEngine.Object> ("Scripts/Character/Robot/Steerings")) {
 			steeringScripts.Add (o.name);
 		}
+
+		bonus = new List<GameObject> ();
+		foreach (GameObject go in Resources.LoadAll<GameObject> ("Prefabs/Game/Bonus")) {
+			bonus.Add (go);
+		};
 		//This is scene 0, load scene 1
 		SceneManager.LoadScene (1);
 	}
@@ -83,6 +94,27 @@ public class GameVariables : MonoBehaviour {
 		return availableColors [index];
 	}
 
+
+	//return next right bonus from the list according to current position
+	public static GameObject getNextBonusRight(GameObject current)
+	{
+		int index = bonus.FindIndex (o => o == current);
+		index++;
+		if (index >= nbColors)
+			index = 0;
+		return bonus [index];
+	}
+
+	//return next left bonus from the list according to current position
+	public static GameObject getNextBonusLeft(GameObject current)
+	{
+		int index = bonus.FindIndex (o => o == current);
+		index--;
+
+		if (index < 0)
+			index = nbColors - 1;
+		return bonus [index];
+	}
 
 }
 

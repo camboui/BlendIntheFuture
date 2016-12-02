@@ -17,6 +17,7 @@ public class RuleOneKillOnePoint : MonoBehaviour {
 	void checkEndGame()
 	{
 		if (GameCreator.remainingPlayers.Count <= 1) {
+			
 			foreach (Human current in GameVariables.players) {
 				for (int i = 0; i < current.getKilledThisRound ().Count; i++) {
 					current.winRound ();

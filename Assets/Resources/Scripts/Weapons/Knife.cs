@@ -40,4 +40,5 @@ public class Knife : Weapon_Abstract {
 	}
 	#endregion
 
+
 }

@@ -15,9 +15,11 @@ public class PlayerSelectionController : MonoBehaviour {
 	private bool changedRecently;
 	private Color currentColor;
 	private List<Image> imagesToColor;
+	private Image bonusImage;
 	private Text text;
 	private Text playText;
 	private int currentState;
+	private GameObject currentBonus;
 	private int maxState;
 	private List<String> textState;
 
@@ -26,20 +28,22 @@ public class PlayerSelectionController : MonoBehaviour {
 	void Start()
 	{
 		currentColor = GameVariables.availableColors [0];
+		currentBonus = GameVariables.bonus [0];
 		changedRecently = false;
 
 		//All images which need to be recolored according to player selection
 		imagesToColor = new List<Image> ();
 		imagesToColor.Add( transform.FindChild ("Background").GetComponentInChildren<Image> ());
 		imagesToColor.Add( transform.FindChild ("enabled").GetComponentInChildren<Image> ());
+		bonusImage = transform.FindChild ("Bonus").GetComponentInChildren<Image> ();
 		colorImages ();
-
+		bonusImages ();
 		playText = GameObject.Find ("Play").GetComponent<Text>();
 
 		//Different states of validation 
 		currentState = 0;
 		text = transform.FindChild ("Press A").GetComponent<Text> ();
-		textState = new List<string> (){ "Choose Color (A)","Ready ? (A)","Ready !"};
+		textState = new List<string> (){ "Choose Color (A)","Choose Bonus (A)","Ready ? (A)","Ready !"};
 		maxState = textState.Count;
 		text.text = textState [currentState];
 
@@ -50,6 +54,10 @@ public class PlayerSelectionController : MonoBehaviour {
 		foreach (Image img in imagesToColor) {
 			img.color = currentColor;
 		}
+	}
+
+	void bonusImages(){
+		bonusImage = currentBonus.GetComponent<Image> ();
 	}
 
 	void Update () {
@@ -75,6 +83,21 @@ public class PlayerSelectionController : MonoBehaviour {
 			if (usedColors.ContainsValue(currentColor)) {
 				currentColor = GameVariables.getNextColorRight (currentColor,usedColors);
 				colorImages ();
+			}
+		}
+		if (currentState == 1) {
+			if (joyStickX < 0.5f && joyStickX > -0.5f)
+				changedRecently = false;
+
+			//change color for player
+			if (joyStickX == 1 && !changedRecently) {
+				currentBonus = GameVariables.getNextBonusRight (currentBonus);
+				bonusImages ();
+				changedRecently = true;
+			} else if (joyStickX == -1 && !changedRecently) {
+				currentBonus = GameVariables.getNextBonusLeft (currentBonus);
+				bonusImages ();
+				changedRecently = true;
 			}
 		}
 		if (Input.GetKeyDown (xboxInput.A) || Input.GetKeyDown (xboxInput.BStart)) {
@@ -124,7 +147,7 @@ public class PlayerSelectionController : MonoBehaviour {
 		//when leaving the scene, add a player to game static variables
 		usedColors.Clear();
 		if (currentState != 0 && currentState >= maxState-1) {
-			GameVariables.players.Add (new Human (playerControllerId, currentColor));
+			GameVariables.players.Add (new Human (playerControllerId, currentColor, currentBonus));
 		}
 	}
 

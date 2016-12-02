@@ -21,13 +21,12 @@ public class GameCreator : MonoBehaviour {
 		//Instantiate players
 		foreach (Human p in GameVariables.players) {
 			GameObject newGO = Instantiate (prefab_player) as GameObject;
-			newGO.GetComponentInChildren<HumanController> ().playerId = p.getJoystickId ();
+			newGO.GetComponentInChildren<HumanController> ().human = p;
 			// DEBUG : SHOW COLOR
 			//newGO.GetComponentInChildren<SpriteRenderer> ().color = p.getColor ();
 			newGO.transform.name = "Player " + i;
 			newGO.transform.position = randomPosOnMap ();
 			newGO.transform.position -= newGO.transform.FindChild ("GroundCheck").transform.localPosition;
-			newGO.AddComponent<Night> ().enabled = false;
 			i++;
 		}
 			
