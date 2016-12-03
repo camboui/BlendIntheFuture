@@ -4,14 +4,16 @@ using System.Collections;
 
 public class WanderSteering : SteeringAbstract {
 
-	float range = 1;
+	float range = 10;
 
 	#region implemented abstract members of SteeringAbstract
 
 	protected override Vector3 NextPoint()
 	{
+		Vector3 next = GameCreator.randomPosOnMap ();
+		next.x += Random.Range (-range, range);
 		isWaitingForNewPoint = false;
-		return new Vector3 (Random.Range (transform.position.x - range, transform.position.x + range), Random.Range (transform.position.y - range, transform.position.y + range), 0);
+		return next;
 	}
 
 	#endregion

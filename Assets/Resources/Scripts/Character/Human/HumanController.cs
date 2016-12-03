@@ -45,8 +45,8 @@ public class HumanController : MonoBehaviour
 		knifeWeapon= transform.GetComponentInChildren<Knife>(true);
 		knifeWeapon.initialiseWeapon (0.5f, rendererContainer);
 
-	
-		bonus = human.getBonus ();
+		Debug.Log ("Bonus_JoystickId" + human.getJoystickId ());
+		bonus = GameObject.Find("Bonus_JoystickId"+human.getJoystickId()).gameObject;
 		bonusUsed = false;
 
 		rgdby = gameObject.GetComponent<Rigidbody2D> ();
@@ -106,12 +106,16 @@ public class HumanController : MonoBehaviour
 		}
 		if (Input.GetKeyDown (xboxInput.B)) {
 			Debug.Log ("P" + human.getJoystickId() + " : B"); 
-			if (!bonusUsed){
-				MonoBehaviour[] scripts = bonus.GetComponents<MonoBehaviour>();
-				foreach(MonoBehaviour s in scripts){
+			if (!bonusUsed) {
+				Debug.Log ("Use Bonus");
+				Bonus_Abstract[] scripts = bonus.GetComponents<Bonus_Abstract> ();
+				foreach (Bonus_Abstract s in scripts) {
+					Debug.Log (s);
 					s.enabled = true;
 				}
 				bonusUsed = true;
+			} else {
+				Debug.Log ("Already Use Bonus");
 			}
 		}
 		if (Input.GetKeyDown (xboxInput.X)) {

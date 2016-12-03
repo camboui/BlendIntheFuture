@@ -24,6 +24,7 @@ public class GameVariables : MonoBehaviour {
 	public static float charactersSpeed = 1.5f;
 
 	private static int nbColors;
+	private static int nbBonus;
 
 	void Awake()
 	{
@@ -56,7 +57,6 @@ public class GameVariables : MonoBehaviour {
 			Color.green
 		};
 		nbColors = availableColors.Count;
-
 		modes = Resources.LoadAll<GameObject> ("Prefabs/Modes");
 		steeringScripts = new List<String> ();
 		foreach (UnityEngine.Object o in Resources.LoadAll<UnityEngine.Object> ("Scripts/Character/Robot/Steerings")) {
@@ -67,6 +67,8 @@ public class GameVariables : MonoBehaviour {
 		foreach (GameObject go in Resources.LoadAll<GameObject> ("Prefabs/Game/Bonus")) {
 			bonus.Add (go);
 		};
+
+		nbBonus = bonus.Count;
 		//This is scene 0, load scene 1
 		SceneManager.LoadScene (1);
 	}
@@ -103,7 +105,7 @@ public class GameVariables : MonoBehaviour {
 	{
 		int index = bonus.FindIndex (o => o == current);
 		index++;
-		if (index >= nbColors)
+		if (index >= nbBonus)
 			index = 0;
 		return bonus [index];
 	}
@@ -115,7 +117,7 @@ public class GameVariables : MonoBehaviour {
 		index--;
 
 		if (index < 0)
-			index = nbColors - 1;
+			index = nbBonus - 1;
 		return bonus [index];
 	}
 

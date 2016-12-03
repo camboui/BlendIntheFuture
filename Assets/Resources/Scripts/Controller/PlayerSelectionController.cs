@@ -15,6 +15,7 @@ public class PlayerSelectionController : MonoBehaviour {
 	private bool changedRecently;
 	private Color currentColor;
 	private List<Image> imagesToColor;
+	private GameObject bonusGO;
 	private Image bonusImage;
 	private Text text;
 	private Text playText;
@@ -35,7 +36,8 @@ public class PlayerSelectionController : MonoBehaviour {
 		imagesToColor = new List<Image> ();
 		imagesToColor.Add( transform.FindChild ("Background").GetComponentInChildren<Image> ());
 		imagesToColor.Add( transform.FindChild ("enabled").GetComponentInChildren<Image> ());
-		bonusImage = transform.FindChild ("Bonus").GetComponentInChildren<Image> ();
+		bonusGO = transform.FindChild ("Bonus").gameObject;
+		bonusImage = bonusGO.GetComponentInChildren<Image> ();
 		colorImages ();
 		bonusImages ();
 		playText = GameObject.Find ("Play").GetComponent<Text>();
@@ -57,7 +59,8 @@ public class PlayerSelectionController : MonoBehaviour {
 	}
 
 	void bonusImages(){
-		bonusImage = currentBonus.GetComponent<Image> ();
+		Debug.Log ("TODO change image bonus");
+		bonusImage.color = currentBonus.GetComponent<Image> ().color;
 	}
 
 	void Update () {
@@ -86,6 +89,7 @@ public class PlayerSelectionController : MonoBehaviour {
 			}
 		}
 		if (currentState == 1) {
+			bonusGO.SetActive(true);
 			if (joyStickX < 0.5f && joyStickX > -0.5f)
 				changedRecently = false;
 
@@ -99,6 +103,8 @@ public class PlayerSelectionController : MonoBehaviour {
 				bonusImages ();
 				changedRecently = true;
 			}
+		} else {
+			bonusGO.SetActive(false);
 		}
 		if (Input.GetKeyDown (xboxInput.A) || Input.GetKeyDown (xboxInput.BStart)) {
 			int currentReady = nbReady;
