@@ -6,29 +6,32 @@ using System.Collections.Generic;
 
 public class HumanController : MonoBehaviour
 {
-
+	public float movementSpeed;
 	public Human human;
+	public Transform rendererContainer;
+
 	private static bool pausedGame;
+
 	private Vector3 movementVector;
-	public float movementSpeed = 1f;
 	private Collider2D mapCollider;
 	private Transform groundPosition;
-	public Transform rendererContainer;
+
 	private Vector3 leftOrientationScale;
 	private Vector3 rightOrientationScale;
 	private Knife knifeWeapon;
 	private Rigidbody2D rgdby;
 	private Animator[] animators;
-
 	private GameObject bonus;
 	private bool bonusUsed;
-
 	private XboxInput xboxInput;
+
 	void Start()
 	{
 		// clear round values for this player
 		human.startNewRound (); 
 
+		movementSpeed = GameVariables.charactersSpeed;
+			
 		//Set orientation
 		leftOrientationScale = transform.localScale;
 		rightOrientationScale = transform.localScale;
@@ -41,6 +44,7 @@ public class HumanController : MonoBehaviour
 
 		knifeWeapon= transform.GetComponentInChildren<Knife>(true);
 		knifeWeapon.initialiseWeapon (0.5f, rendererContainer);
+
 	
 		bonus = human.getBonus ();
 		bonusUsed = false;
@@ -54,6 +58,13 @@ public class HumanController : MonoBehaviour
 	{
 		foreach (Animator anm in animators) {
 			anm.SetBool (boolname,value);
+		}
+	}
+
+	private void triggerAllAnimators(string triggerName)
+	{
+		foreach (Animator anm in animators) {
+			anm.SetTrigger (triggerName);
 		}
 	}
 
@@ -105,7 +116,7 @@ public class HumanController : MonoBehaviour
 		}
 		if (Input.GetKeyDown (xboxInput.X)) {
 			Debug.Log ("P" + human.getJoystickId() + " : X"); 
-			//changeAllAnimatorsBool ("isShooting", true); 
+			triggerAllAnimators ("shootTrigger");  //Trigger Animation which will call function from BulletSpawner.cs
 		}
 		if (Input.GetKeyDown (xboxInput.Y)) {
 			Debug.Log ("P" + human.getJoystickId() + " : Y");      
@@ -127,4 +138,5 @@ public class HumanController : MonoBehaviour
 			}
 		}
 	}
+
 }

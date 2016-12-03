@@ -36,6 +36,7 @@ public class Knife : Weapon_Abstract {
 			} else if (parentGO.tag.Equals ("Player")) {
 				humanOwner.getKilledThisRound ().Add (parentGO.GetComponent<HumanController> ().human.getJoystickId ());
 				Destroy (parentGO);
+				Destroy (gameObject);
 			}
 		}
 	}

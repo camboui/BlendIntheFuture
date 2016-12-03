@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class SteeringAbstract : MonoBehaviour {
 
-	protected float Speed = 1f;
+	public float Speed;
 	private Vector3 wayPoint;
 	protected float timer;
 	float delayTime=2f;
@@ -11,12 +11,16 @@ public abstract class SteeringAbstract : MonoBehaviour {
 	private Vector3 leftOrientationScale;
 	private Vector3 rightOrientationScale;
 	protected Animator[] animators;
+	private Rigidbody2D rgdby;
 
 	// Use this for initialization
 	protected void Start () {
 		leftOrientationScale = transform.localScale;
 		rightOrientationScale = transform.localScale;
 		rightOrientationScale.x = rightOrientationScale.x * -1;
+
+		Speed = GameVariables.charactersSpeed;
+		rgdby = gameObject.GetComponent<Rigidbody2D> ();
 
 		wayPoint = NextPoint ();
 		timer = Time.time + delayTime;
@@ -28,7 +32,7 @@ public abstract class SteeringAbstract : MonoBehaviour {
 		animators = transform.FindChild("Renderers").GetComponentsInChildren <Animator>();
 	}
 	
-	void FixedUpdate()
+	void Update()
 	{
 		if (!isWaitingForNewPoint && Time.time >= timer) {
 			isWaitingForNewPoint = true;
@@ -38,7 +42,7 @@ public abstract class SteeringAbstract : MonoBehaviour {
 			changeAllAnimatorsBool("isWalking", true);
 			if ((transform.position - wayPoint).magnitude > 3) {
 				Vector3 nextPos = (wayPoint - transform.position).normalized * Speed * Time.deltaTime;	
-				transform.position += nextPos;
+				rgdby.MovePosition (transform.position + nextPos);
 				if (nextPos.x < 0)
 					transform.localScale = rightOrientationScale;
 				else
@@ -46,7 +50,6 @@ public abstract class SteeringAbstract : MonoBehaviour {
 			} else {
 				changeAllAnimatorsBool("isWalking", false);
 				wayPoint = NextPoint ();
-
 			}
 		}
 	}
