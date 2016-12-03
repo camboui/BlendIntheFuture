@@ -39,7 +39,7 @@ public class HumanController : MonoBehaviour
 		groundPosition = transform.FindChild ("GroundCheck");
 		rendererContainer = transform.FindChild ("Renderers");
 
-		knifeWeapon= gameObject.AddComponent<Knife>();
+		knifeWeapon= transform.GetComponentInChildren<Knife>(true);
 		knifeWeapon.initialiseWeapon (0.5f, rendererContainer);
 	
 		bonus = human.getBonus ();
