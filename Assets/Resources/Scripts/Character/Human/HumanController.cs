@@ -10,8 +10,6 @@ public class HumanController : MonoBehaviour
 	public Human human;
 	public Transform rendererContainer;
 
-	private static bool pausedGame;
-
 	private Vector3 movementVector;
 	private Collider2D mapCollider;
 	private Transform groundPosition;
@@ -36,7 +34,6 @@ public class HumanController : MonoBehaviour
 		leftOrientationScale = transform.localScale;
 		rightOrientationScale = transform.localScale;
 		rightOrientationScale.x = rightOrientationScale.x * -1;
-		pausedGame = false;
 		xboxInput = new XboxInput (human.getJoystickId());
 		mapCollider = GameObject.FindGameObjectWithTag ("Map").GetComponentInChildren<Collider2D> ();
 		groundPosition = transform.FindChild ("GroundCheck");
@@ -67,16 +64,16 @@ public class HumanController : MonoBehaviour
 			anm.SetTrigger (triggerName);
 		}
 	}
-
-
-	//Script is disabled on start
-	void OnEnable(){
-		pausedGame = false;
-	}
 		
 
 	void Update()
 	{
+		//Remove pause menu if existing
+		if (GameVariables.pausedGame) {
+			SceneManager.UnloadScene ("PauseMenu");
+			GameVariables.pausedGame = false;
+		}
+
 		//X and Y axis are defined in Edit/Project Settings/Input
 		movementVector.x = xboxInput.getXaxis () * movementSpeed * Time.deltaTime;
 		if (movementVector.x!=0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + new Vector3(movementVector.x,0,0))))  {
@@ -144,11 +141,7 @@ public class HumanController : MonoBehaviour
 			}
 		}
 
-		if (GameVariables.pausedGame) {
-			Debug.Log ("AZEUIHAZOIUEHAZIUEHIAZUUUUUUUUUUUUUUUUUUUH");
-			SceneManager.UnloadScene ("PauseMenu");
-			GameVariables.pausedGame = false;
-		}
+
 	}
 
 }
