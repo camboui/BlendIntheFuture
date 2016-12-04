@@ -9,7 +9,7 @@ public class BulletSpawner : MonoBehaviour {
 	private Human humanOwner;
 
 	void Start () {
-		bulletSpawn = transform.FindChild ("BulletSpawn").transform;
+		bulletSpawn = transform.parent.FindChild ("BulletSpawn").transform;
 		humanOwner = transform.GetComponentInParent<HumanController> ().human;
 	}
 
