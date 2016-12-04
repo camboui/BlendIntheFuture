@@ -28,8 +28,13 @@ public class GameCreator : MonoBehaviour {
 			newGO.transform.position = randomPosOnMap ();
 			newGO.transform.position -= newGO.transform.FindChild ("GroundCheck").transform.localPosition;
 			GameObject bonus = Instantiate (p.getBonus (), GameObject.FindGameObjectWithTag ("Map").transform) as GameObject;
-			bonus.name = "Bonus_JoystickId" + p.getJoystickId();
-			bonus.GetComponent<Bonus_Abstract>().enabled = false;
+			bonus.name = "Bonus_JoystickId" + p.getJoystickId ();
+			bonus.GetComponent<Bonus_Abstract> ().enabled = false;
+			if (bonus.GetComponentInChildren<ParticleSystem> () != null){
+				Debug.Log ("smokeball");
+				bonus.GetComponentInChildren<ParticleSystem> ().Stop (); 
+				bonus.GetComponent<SmokeBall> ().player = newGO;
+			}
 			i++;
 		}
 			
