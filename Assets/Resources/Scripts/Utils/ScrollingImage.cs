@@ -9,7 +9,7 @@ public class ScrollingImage : MonoBehaviour {
 
 	void Start()
 	{
-		speed = 0.0001f;
+		speed = 0.0004f;
 		myRend = GetComponent<Renderer> ().material;
 		offset = new Vector2 (0, 0);
 	}
