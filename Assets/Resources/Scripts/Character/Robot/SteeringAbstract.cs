@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public abstract class SteeringAbstract : MonoBehaviour {
 
@@ -10,7 +11,8 @@ public abstract class SteeringAbstract : MonoBehaviour {
 	protected bool isWaitingForNewPoint;
 	private Vector3 leftOrientationScale;
 	private Vector3 rightOrientationScale;
-	protected Animator[] animators;
+	public List<Animator> animatorsBody;
+	public List<Animator> animatorsArm;
 	private Rigidbody2D rgdby;
 
 	// Use this for initialization
@@ -29,7 +31,16 @@ public abstract class SteeringAbstract : MonoBehaviour {
 		else
 			isWaitingForNewPoint = false;
 
-		animators = transform.FindChild("Renderers").GetComponentsInChildren <Animator>();
+		Transform rendererContainer = transform.FindChild("Renderers");
+
+		animatorsBody = new List<Animator> ();
+		animatorsArm = new List<Animator> ();
+
+		for (int i = 0; i < rendererContainer.childCount; i++) {
+			animatorsBody.Add (rendererContainer.GetChild (i).GetComponent<Animator> ());
+			animatorsArm.Add (rendererContainer.GetChild (i).FindChild("arm").GetComponent<Animator> ());
+		}
+
 	}
 	
 	void Update()
@@ -39,7 +50,8 @@ public abstract class SteeringAbstract : MonoBehaviour {
 		}
 
 		if (isWaitingForNewPoint) {
-			changeAllAnimatorsBool("isWalking", true);
+			changeAllAnimatorsBool(animatorsBody,"isWalking", true);
+			changeAllAnimatorsBool(animatorsArm,"isWalking", true);
 			if ((transform.position - wayPoint).magnitude > 3) {
 				Vector3 nextPos = (wayPoint - transform.position).normalized * Speed * Time.deltaTime;	
 				rgdby.MovePosition (transform.position + nextPos);
@@ -48,17 +60,25 @@ public abstract class SteeringAbstract : MonoBehaviour {
 				else
 					transform.localScale = leftOrientationScale;
 			} else {
-				changeAllAnimatorsBool("isWalking", false);
+				changeAllAnimatorsBool(animatorsBody,"isWalking", false);
+				changeAllAnimatorsBool(animatorsArm,"isWalking", false);
 				wayPoint = NextPoint ();
 			}
 		}
 	}
 
 
-	private void changeAllAnimatorsBool(string boolname, bool value)
+	private void changeAllAnimatorsBool(List<Animator> animators, string boolname, bool value)
 	{
 		foreach (Animator anm in animators) {
 			anm.SetBool (boolname,value);
+		}
+	}
+
+	private void triggerAllAnimators(List<Animator> animators,string triggerName)
+	{
+		foreach (Animator anm in animators) {
+			anm.SetTrigger (triggerName);
 		}
 	}
 
