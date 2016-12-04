@@ -26,15 +26,17 @@ public class Knife : Weapon_Abstract {
 			weapon.SetActive (false);
 		}
 	}
-
+		
 	protected override void OnTriggerEnter2D(Collider2D other) {
 		GameObject parentGO = other.transform.parent.parent.gameObject;
-		if (parentGO != null) {
+		if (parentGO != null ) {
 			print ("HIT : " + parentGO.name);
 			if (parentGO.tag.Equals ("AI")) {
 				Destroy (parentGO);
 			} else if (parentGO.tag.Equals ("Player")) {
+				humanOwner.getKilledThisRound ().Add (parentGO.GetComponent<HumanController> ().human.getJoystickId ());
 				Destroy (parentGO);
+				Destroy (gameObject);
 			}
 		}
 	}

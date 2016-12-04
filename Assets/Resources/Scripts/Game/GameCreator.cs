@@ -27,6 +27,9 @@ public class GameCreator : MonoBehaviour {
 			newGO.transform.name = "Player " + i;
 			newGO.transform.position = randomPosOnMap ();
 			newGO.transform.position -= newGO.transform.FindChild ("GroundCheck").transform.localPosition;
+			GameObject bonus = Instantiate (p.getBonus (), GameObject.FindGameObjectWithTag ("Map").transform) as GameObject;
+			bonus.name = "Bonus_JoystickId" + p.getJoystickId();
+			bonus.GetComponent<Bonus_Abstract>().enabled = false;
 			i++;
 		}
 			

@@ -6,29 +6,32 @@ using System.Collections.Generic;
 
 public class HumanController : MonoBehaviour
 {
-
+	public float movementSpeed;
 	public Human human;
+	public Transform rendererContainer;
+
 	private static bool pausedGame;
+
 	private Vector3 movementVector;
-	public float movementSpeed = 1f;
 	private Collider2D mapCollider;
 	private Transform groundPosition;
-	public Transform rendererContainer;
+
 	private Vector3 leftOrientationScale;
 	private Vector3 rightOrientationScale;
 	private Knife knifeWeapon;
 	private Rigidbody2D rgdby;
 	private Animator[] animators;
-
 	private GameObject bonus;
 	private bool bonusUsed;
-
 	private XboxInput xboxInput;
+
 	void Start()
 	{
 		// clear round values for this player
 		human.startNewRound (); 
 
+		movementSpeed = GameVariables.charactersSpeed;
+			
 		//Set orientation
 		leftOrientationScale = transform.localScale;
 		rightOrientationScale = transform.localScale;
@@ -39,10 +42,11 @@ public class HumanController : MonoBehaviour
 		groundPosition = transform.FindChild ("GroundCheck");
 		rendererContainer = transform.FindChild ("Renderers");
 
-		knifeWeapon= gameObject.AddComponent<Knife>();
+		knifeWeapon= transform.GetComponentInChildren<Knife>(true);
 		knifeWeapon.initialiseWeapon (0.5f, rendererContainer);
-	
-		bonus = human.getBonus ();
+
+		Debug.Log ("Bonus_JoystickId" + human.getJoystickId ());
+		bonus = GameObject.Find("Bonus_JoystickId"+human.getJoystickId()).gameObject;
 		bonusUsed = false;
 
 		rgdby = gameObject.GetComponent<Rigidbody2D> ();
@@ -54,6 +58,13 @@ public class HumanController : MonoBehaviour
 	{
 		foreach (Animator anm in animators) {
 			anm.SetBool (boolname,value);
+		}
+	}
+
+	private void triggerAllAnimators(string triggerName)
+	{
+		foreach (Animator anm in animators) {
+			anm.SetTrigger (triggerName);
 		}
 	}
 
@@ -95,17 +106,21 @@ public class HumanController : MonoBehaviour
 		}
 		if (Input.GetKeyDown (xboxInput.B)) {
 			Debug.Log ("P" + human.getJoystickId() + " : B"); 
-			if (!bonusUsed){
-				MonoBehaviour[] scripts = bonus.GetComponents<MonoBehaviour>();
-				foreach(MonoBehaviour s in scripts){
+			if (!bonusUsed) {
+				Debug.Log ("Use Bonus");
+				Bonus_Abstract[] scripts = bonus.GetComponents<Bonus_Abstract> ();
+				foreach (Bonus_Abstract s in scripts) {
+					Debug.Log (s);
 					s.enabled = true;
 				}
 				bonusUsed = true;
+			} else {
+				Debug.Log ("Already Use Bonus");
 			}
 		}
 		if (Input.GetKeyDown (xboxInput.X)) {
 			Debug.Log ("P" + human.getJoystickId() + " : X"); 
-			//changeAllAnimatorsBool ("isShooting", true); 
+			triggerAllAnimators ("shootTrigger");  //Trigger Animation which will call function from BulletSpawner.cs
 		}
 		if (Input.GetKeyDown (xboxInput.Y)) {
 			Debug.Log ("P" + human.getJoystickId() + " : Y");      
@@ -127,4 +142,5 @@ public class HumanController : MonoBehaviour
 			}
 		}
 	}
+
 }

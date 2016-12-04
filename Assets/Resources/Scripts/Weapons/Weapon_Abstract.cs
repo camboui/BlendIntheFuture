@@ -8,6 +8,8 @@ public abstract class Weapon_Abstract : MonoBehaviour {
 	protected List<GameObject> weaponCopies;
 	protected float reloadTime;
 	private bool isReadyToUse;
+	protected Human humanOwner;
+
 
 	protected void setVariables(float reloadTime,Transform rendererContainer)
 	{
@@ -19,6 +21,7 @@ public abstract class Weapon_Abstract : MonoBehaviour {
 		foreach (Transform child in rendererContainer) {
 			weaponCopies.Add (child.FindChild ("Weapon").gameObject);
 		}
+		this.humanOwner = rendererContainer.parent.GetComponent<HumanController> ().human;
 	}
 
 	public void use(){
