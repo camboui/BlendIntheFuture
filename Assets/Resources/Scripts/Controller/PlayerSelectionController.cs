@@ -10,8 +10,9 @@ public class PlayerSelectionController : MonoBehaviour {
 	public static int nbReady;
 	private static Dictionary<int,Color> usedColors = new Dictionary<int,Color>();
 
-	public AudioSource choice;
-	public AudioSource validate;
+	public AudioClip choice;
+	public AudioClip validate;
+	public AudioClip close;
 
 	public int playerControllerId;
 
@@ -79,12 +80,12 @@ public class PlayerSelectionController : MonoBehaviour {
 
 			//change color for player
 			if (joyStickX == 1 && !changedRecently) {
-				choice.Play ();
+				SoundManager.instance.RandomizeSfx (choice);
 				currentColor = GameVariables.getNextColorRight (currentColor,usedColors);
 				colorImages ();
 				changedRecently = true;
 			} else if (joyStickX == -1 && !changedRecently) {
-				choice.Play ();
+				SoundManager.instance.RandomizeSfx (choice);
 				currentColor = GameVariables.getNextColorLeft (currentColor,usedColors);
 				colorImages ();
 				changedRecently = true;
@@ -105,12 +106,12 @@ public class PlayerSelectionController : MonoBehaviour {
 
 			//change color for player
 			if (joyStickX == 1 && !changedRecently) {
-				choice.Play ();
+				SoundManager.instance.RandomizeSfx (choice);
 				currentBonus = GameVariables.getNextBonusRight (currentBonus);
 				bonusImages ();
 				changedRecently = true;
 			} else if (joyStickX == -1 && !changedRecently) {
-				choice.Play ();
+				SoundManager.instance.RandomizeSfx (choice);
 				currentBonus = GameVariables.getNextBonusLeft (currentBonus);
 				bonusImages ();
 				changedRecently = true;
@@ -125,7 +126,7 @@ public class PlayerSelectionController : MonoBehaviour {
 			transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (false);
 		}
 		if (Input.GetKeyDown (xboxInput.A) || Input.GetKeyDown (xboxInput.BStart)) {
-			validate.Play ();
+			SoundManager.instance.RandomizeSfx (validate);
 			int currentReady = nbReady;
 			//go to next state and update Debug.Loging
 			if (currentState < maxState) {
@@ -152,6 +153,7 @@ public class PlayerSelectionController : MonoBehaviour {
 		else if (Input.GetKeyDown (xboxInput.B)) {
 			//Player wants to go back to previous menu
 			if (currentState == 0) { 
+				SoundManager.instance.RandomizeSfx (close);
 				SceneManager.LoadScene (1);
 			}
 			//go to previous state and update Debug.Loging
