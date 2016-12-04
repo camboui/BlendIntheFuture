@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class CheckNewControllers : MonoBehaviour {
 
+	public Sprite selected;
+
 	private int currentPlugged;
 	private int currentAccepted;
 	private List<GameObject> playersSelector;
@@ -78,6 +80,12 @@ public class CheckNewControllers : MonoBehaviour {
 			if (Input.GetKeyDown (xboxInputs[j-1].A)) {
 				if (!pluggedControllersId.Contains (j)) {
 					pluggedControllersId.Add (j);
+					playersSelector [currentAccepted].transform.FindChild ("Background").GetComponent<Image> ().sprite = selected;
+					playersSelector [currentAccepted].transform.FindChild ("Player").gameObject.SetActive(true);
+					playersSelector [currentAccepted].transform.FindChild ("PlayerNumber").gameObject.SetActive(true);
+					playersSelector [currentAccepted].transform.FindChild ("enabled").gameObject.SetActive (false);
+					playersSelector [currentAccepted].transform.FindChild ("Press A").gameObject.SetActive (false);
+					playersSelector [currentAccepted].transform.FindChild ("InstructionsPanel").gameObject.SetActive (true);
 					playersSelector [currentAccepted].GetComponent<PlayerSelectionController> ().enabled = true;
 					playersSelector [currentAccepted].GetComponent<PlayerSelectionController> ().playerControllerId = j;
 					currentAccepted++;

@@ -34,8 +34,8 @@ public class PlayerSelectionController : MonoBehaviour {
 
 		//All images which need to be recolored according to player selection
 		imagesToColor = new List<Image> ();
-		imagesToColor.Add( transform.FindChild ("Background").GetComponentInChildren<Image> ());
-		imagesToColor.Add( transform.FindChild ("enabled").GetComponentInChildren<Image> ());
+		imagesToColor.Add( transform.FindChild ("ColorSelection").GetComponentInChildren<Image> ());
+		//imagesToColor.Add( transform.FindChild ("enabled").GetComponentInChildren<Image> ());
 		bonusGO = transform.FindChild ("Bonus").gameObject;
 		bonusImage = bonusGO.GetComponentInChildren<Image> ();
 		colorImages ();
@@ -44,8 +44,7 @@ public class PlayerSelectionController : MonoBehaviour {
 
 		//Different states of validation 
 		currentState = 0;
-		text = transform.FindChild ("Press A").GetComponent<Text> ();
-		text = transform.FindChild ("Press A/TextSelection").GetComponent<Text> ();
+		text = transform.FindChild ("InstructionsPanel/Instructions").GetComponent<Text> ();
 		textState = new List<string> (){ "Choose Color","Choose Bonus","Ready ?","Ready !"};
 		maxState = textState.Count;
 		text.text = textState [currentState];
@@ -58,6 +57,7 @@ public class PlayerSelectionController : MonoBehaviour {
 			img.color = currentColor;
 		}
 	}
+
 
 	void bonusImages(){
 		Debug.Log ("TODO change image bonus");
@@ -93,6 +93,7 @@ public class PlayerSelectionController : MonoBehaviour {
 
 		//Bonus Choice
 		if (currentState == 1) {
+			transform.FindChild ("Player").gameObject.SetActive(false);
 			bonusGO.SetActive(true);
 			if (joyStickX < 0.5f && joyStickX > -0.5f)
 				changedRecently = false;
@@ -110,6 +111,12 @@ public class PlayerSelectionController : MonoBehaviour {
 		} else {
 			bonusGO.SetActive(false);
 		}
+		if (currentState == 2 && !changedRecently) {
+			transform.FindChild ("Player").gameObject.SetActive (true);
+		}
+		if (currentState == (maxState -1) && !changedRecently) {
+			transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (false);
+		}
 		if (Input.GetKeyDown (xboxInput.A) || Input.GetKeyDown (xboxInput.BStart)) {
 			int currentReady = nbReady;
 			//go to next state and update Debug.Loging
@@ -123,6 +130,7 @@ public class PlayerSelectionController : MonoBehaviour {
 					nbReady++;
 				if (currentState < maxState)
 					text.text = textState [currentState];
+
 			}
 			//if there are enough player, show "Play" text
 			if (currentReady <= 1 && nbReady >= GameVariables.minPlayers) {
@@ -131,6 +139,7 @@ public class PlayerSelectionController : MonoBehaviour {
 			if (currentState == maxState && currentReady >= GameVariables.minPlayers) {
 				SceneManager.LoadScene ("ModeSelectionMenu"); 
 			}
+
 		}
 		else if (Input.GetKeyDown (xboxInput.B)) {
 			//Player wants to go back to previous menu
@@ -143,6 +152,20 @@ public class PlayerSelectionController : MonoBehaviour {
 					nbReady--;
 
 				currentState--;
+				switch (currentState) {
+				case 0:
+					transform.FindChild ("Player").gameObject.SetActive(true);
+					transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (true);
+					break;
+				case 1:
+					transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (true);
+					break;
+				case 2:
+					transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (true);
+					break;
+				default:
+					break;
+				}
 				text.text = textState [currentState];
 			}
 			//if there are not enough player, hide "Play" text
