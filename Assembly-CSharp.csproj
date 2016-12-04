@@ -67,8 +67,10 @@
      <Compile Include="Assets\Resources\Scripts\Game\GameCreator.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\Rules\RuleLastSurvivor.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\Rules\RuleOneKillOnePoint.cs" />
+     <Compile Include="Assets\Resources\Scripts\Sounds\ButtonAudio.cs" />
      <Compile Include="Assets\Resources\Scripts\Sounds\SetEFXVolume.cs" />
      <Compile Include="Assets\Resources\Scripts\Sounds\SetMusicVolume.cs" />
+     <Compile Include="Assets\Resources\Scripts\Sounds\SoundManager.cs" />
      <Compile Include="Assets\Resources\Scripts\UI\ClickToLoadAsync.cs" />
      <Compile Include="Assets\Resources\Scripts\UI\QuitOnEnter.cs" />
      <Compile Include="Assets\Resources\Scripts\UI\SelectOnInput.cs" />
