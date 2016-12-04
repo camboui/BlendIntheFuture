@@ -11,7 +11,7 @@ public class RuleLastSurvivor : MonoBehaviour {
 		if (nextSceneName == null || nextSceneName.Equals(""))
 			nextSceneName = "EndGame";
 		//Check rule Every 1 second. Let some time for draw 
-		//InvokeRepeating("checkEndGame", 1.0f, 1.0f);
+		InvokeRepeating("checkEndGame", 1.0f, 1.0f);
 	}
 
 	void checkEndGame()
@@ -24,7 +24,6 @@ public class RuleLastSurvivor : MonoBehaviour {
 					}
 				}
 			}
-			Debug.Log ("GAME ENDED WITH " + GameCreator.remainingPlayers.Count + "players");
 			SceneManager.LoadScene (nextSceneName);
 		}
 	}

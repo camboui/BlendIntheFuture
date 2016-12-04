@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour {
 	private float bulletSpeed;
 	public Human humanOwner;
 
+
 	public void initialiseBullet(Human humanOwner,float bulletSpeed)
 	{
 		this.humanOwner = humanOwner;

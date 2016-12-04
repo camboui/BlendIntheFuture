@@ -19,6 +19,7 @@ public class CheckNewControllers : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		//Clear global variables when entering back in the scene
+		PlayerSelectionController.nbReady=0;
 		GameVariables.players.Clear ();
 		xboxInputs = new List<XboxInput> ();
 

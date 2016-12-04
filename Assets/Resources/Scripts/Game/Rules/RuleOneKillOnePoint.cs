@@ -17,13 +17,14 @@ public class RuleOneKillOnePoint : MonoBehaviour {
 	void checkEndGame()
 	{
 		if (GameCreator.remainingPlayers.Count <= 1) {
-			
 			foreach (Human current in GameVariables.players) {
 				for (int i = 0; i < current.getKilledThisRound ().Count; i++) {
-					current.winRound ();
+					if (current.getKilledThisRound () [i] != current.getJoystickId ())
+						current.winRound ();
+					else
+						current.suicide ();
 				}
 			}
-			Debug.Log ("GAME ENDED WITH " + GameCreator.remainingPlayers.Count + "players");
 			SceneManager.LoadScene (nextSceneName);
 		}
 	}

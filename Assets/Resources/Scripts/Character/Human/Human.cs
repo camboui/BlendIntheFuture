@@ -8,7 +8,9 @@ public class Human {
 
 	[SerializeField] private List<int> killedThisRound;
 	[SerializeField] private int joystickId;
-	[SerializeField] private int wins;
+	[SerializeField] private int currentScore;
+	[SerializeField] private int pointsToAdd;
+	[SerializeField] private int pointsToRemove;
 	[SerializeField] private int ammo;
 	[SerializeField] private int deaths;
 	[SerializeField] private Color color;
@@ -19,19 +21,23 @@ public class Human {
 		killedThisRound = new List<int> ();
 		joystickId = joyId;
 		ammo = 2;
-		wins = 0;
+		currentScore = 0;
 		deaths = 0;
 		color = c;
 		bonus = b;
+		pointsToAdd = 0;
+		pointsToRemove = 0;
 	}
 
 	public Human(){
 		killedThisRound = new List<int> ();
 		joystickId = 0;
-		wins = 0;
+		currentScore = 0;
 		deaths = 0;
 		color = Color.blue;
 		ammo = 2;
+		pointsToAdd = 0;
+		pointsToRemove = 0;
 	}
 
 	public List<int> getKilledThisRound(){
@@ -39,11 +45,17 @@ public class Human {
 	}
 
 	public void startNewRound(){
+		ammo = 2;
+		pointsToRemove = 0;
+		pointsToAdd = 0;
 		killedThisRound.Clear ();
 	}
 
 	public void rematchClear(){
-		wins = 0;
+		pointsToRemove = 0;
+		ammo = 2;
+		pointsToAdd = 0;
+		currentScore = 0;
 		deaths = 0;
 		killedThisRound.Clear ();
 	}
@@ -66,12 +78,24 @@ public class Human {
 		return color;
 	}
 
-	public int getWins(){
-		return wins;
+	public int getCurrentScore(){
+		return currentScore;
 	}
 
 	public int getDeaths(){
 		return deaths;
+	}
+
+	public void updateCurrentScore()
+	{
+		currentScore += pointsToAdd - pointsToRemove;
+		if (currentScore < 0)
+			currentScore = 0;
+	}
+
+	public int getNextUpdateScore()
+	{
+		return Mathf.Max(0, currentScore + pointsToAdd - pointsToRemove);
 	}
 
 	public GameObject getBonus(){
@@ -79,12 +103,25 @@ public class Human {
 	}
 
 	public void winRound () {
-		wins++;
+		pointsToAdd++;
+	}
+
+	public void suicide () {
+		pointsToRemove++;
 	}
 
 	public void die(){
 		deaths++;
 	}
 
+	public int getPointsToAdd()
+	{
+		return pointsToAdd;
+	}
+
+	public int getPointsToRemove()
+	{
+		return pointsToRemove;
+	}
 }
 
