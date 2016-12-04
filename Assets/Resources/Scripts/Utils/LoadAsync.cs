@@ -12,14 +12,14 @@ public class LoadAsync : MonoBehaviour {
 	private AsyncOperation async;
 
 	// Use this for initialization
-	void Start () {
-		ClickAsync ();
+	void Awake () {
+		Load ();
 	}
 	
-	public void ClickAsync()
+	public void Load()
 	{
 		loadingImage.SetActive (true);
-		StartCoroutine (LoadLevelWithBar (scene));
+		//StartCoroutine (LoadLevelWithBar (scene));
 	}
 
 	IEnumerator LoadLevelWithBar (string level)
