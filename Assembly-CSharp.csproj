@@ -72,6 +72,7 @@
      <Compile Include="Assets\Resources\Scripts\UI\QuitOnEnter.cs" />
      <Compile Include="Assets\Resources\Scripts\UI\SelectOnInput.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\GameVariables.cs" />
+     <Compile Include="Assets\Resources\Scripts\Utils\LoadAsync.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\ModeSceneLoader.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\SceneLoader.cs" />
      <Compile Include="Assets\Resources\Scripts\Utils\ScrollingImage.cs" />
