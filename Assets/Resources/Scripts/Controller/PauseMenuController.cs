@@ -32,9 +32,7 @@ public class PauseMenuController : MonoBehaviour {
 		foreach (MonoBehaviour p in disabledScripts) {
 			p.enabled = true;
 		}
-		DestroyImmediate (GameObject.Find ("Button"));
-		
-		SceneManager.UnloadScene ("PauseMenu");
+		GameVariables.pausedGame = true;
 	}
 
 	public void quit(string sceneName){

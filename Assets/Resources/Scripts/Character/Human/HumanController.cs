@@ -139,10 +139,15 @@ public class HumanController : MonoBehaviour
 		}
 		if (Input.GetKeyDown (xboxInput.BStart)) {
 			Debug.Log ("P" + human.getJoystickId() + " : BStart");
-			if (!pausedGame) {
+			if (!GameVariables.pausedGame ) {
 				SceneManager.LoadScene ("PauseMenu", LoadSceneMode.Additive);
-				pausedGame = true;
 			}
+		}
+
+		if (GameVariables.pausedGame) {
+			Debug.Log ("AZEUIHAZOIUEHAZIUEHIAZUUUUUUUUUUUUUUUUUUUH");
+			SceneManager.UnloadScene ("PauseMenu");
+			GameVariables.pausedGame = false;
 		}
 	}
 
