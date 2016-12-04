@@ -67,6 +67,7 @@
      <Compile Include="Assets\Resources\Scripts\Game\GameCreator.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\Rules\RuleLastSurvivor.cs" />
      <Compile Include="Assets\Resources\Scripts\Game\Rules\RuleOneKillOnePoint.cs" />
+     <Compile Include="Assets\Resources\Scripts\Game\Rules\RuleTimeout.cs" />
      <Compile Include="Assets\Resources\Scripts\Sounds\ButtonAudio.cs" />
      <Compile Include="Assets\Resources\Scripts\Sounds\SetEFXVolume.cs" />
      <Compile Include="Assets\Resources\Scripts\Sounds\SetMusicVolume.cs" />
@@ -83,7 +84,6 @@
      <Compile Include="Assets\Resources\Scripts\Weapons\Bullet.cs" />
      <Compile Include="Assets\Resources\Scripts\Weapons\BulletSpawner.cs" />
      <Compile Include="Assets\Resources\Scripts\Weapons\Knife.cs" />
-     <Compile Include="Assets\Resources\Scripts\Weapons\Weapon_Abstract.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

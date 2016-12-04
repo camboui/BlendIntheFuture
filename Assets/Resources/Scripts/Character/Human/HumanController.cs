@@ -16,9 +16,12 @@ public class HumanController : MonoBehaviour
 
 	private Vector3 leftOrientationScale;
 	private Vector3 rightOrientationScale;
-	private Knife knifeWeapon;
+
 	private Rigidbody2D rgdby;
-	private Animator[] animators;
+	public List<Animator> animatorsBody;
+	public List<Animator> animatorsArm;
+	public List<Animator> animatorsArmKnife;
+
 	private GameObject bonus;
 	private bool bonusUsed;
 	private XboxInput xboxInput;
@@ -39,26 +42,31 @@ public class HumanController : MonoBehaviour
 		groundPosition = transform.FindChild ("GroundCheck");
 		rendererContainer = transform.FindChild ("Renderers");
 
-		knifeWeapon= transform.GetComponentInChildren<Knife>(true);
-		knifeWeapon.initialiseWeapon (0.5f, rendererContainer);
-
 		Debug.Log ("Bonus_JoystickId" + human.getJoystickId ());
 		bonus = GameObject.Find("Bonus_JoystickId"+human.getJoystickId()).gameObject;
 		bonusUsed = false;
 
 		rgdby = gameObject.GetComponent<Rigidbody2D> ();
-		animators = rendererContainer.GetComponentsInChildren <Animator>();
+		animatorsBody = new List<Animator> ();
+		animatorsArm = new List<Animator> ();
+		animatorsArmKnife= new List<Animator> ();
+		for (int i = 0; i < rendererContainer.childCount; i++) {
+			animatorsBody.Add (rendererContainer.GetChild (i).GetComponent<Animator> ());
+			animatorsArm.Add (rendererContainer.GetChild (i).FindChild("arm").GetComponent<Animator> ());
+			animatorsArmKnife.Add (rendererContainer.GetChild (i).FindChild("armKnife").GetComponent<Animator> ());
+		}
+
 
 	}
 
-	private void changeAllAnimatorsBool(string boolname, bool value)
+	private void changeAllAnimatorsBool(List<Animator> animators, string boolname, bool value)
 	{
 		foreach (Animator anm in animators) {
 			anm.SetBool (boolname,value);
 		}
 	}
 
-	private void triggerAllAnimators(string triggerName)
+	private void triggerAllAnimators(List<Animator> animators,string triggerName)
 	{
 		foreach (Animator anm in animators) {
 			anm.SetTrigger (triggerName);
@@ -78,7 +86,8 @@ public class HumanController : MonoBehaviour
 		movementVector.x = xboxInput.getXaxis () * movementSpeed * Time.deltaTime;
 		if (movementVector.x!=0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + new Vector3(movementVector.x,0,0))))  {
 			rgdby.MovePosition (transform.position + movementVector);
-			changeAllAnimatorsBool ("isWalking", true);
+			changeAllAnimatorsBool (animatorsBody,"isWalking", true);
+			changeAllAnimatorsBool (animatorsArm,"isWalking", true);
 			if (movementVector.x < 0)
 				transform.localScale = rightOrientationScale;
 			else
@@ -88,18 +97,21 @@ public class HumanController : MonoBehaviour
 		movementVector.y = xboxInput.getYaxis () * movementSpeed * Time.deltaTime;
 		if (movementVector.y!=0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + new Vector3(0,movementVector.y,0))))  {
 			rgdby.MovePosition (transform.position + movementVector);
-			changeAllAnimatorsBool ("isWalking", true);
+			changeAllAnimatorsBool (animatorsBody,"isWalking", true);
+			changeAllAnimatorsBool (animatorsArm,"isWalking", true);
 		} 
 
 		if (movementVector.x == 0f && movementVector.y == 0f) {
-			changeAllAnimatorsBool ("isWalking", false);
+			changeAllAnimatorsBool (animatorsBody,"isWalking", false);
+			changeAllAnimatorsBool (animatorsArm,"isWalking", false);
+
 		}
 
 		
 
 		if (Input.GetKeyDown (xboxInput.A)) {
 			Debug.Log ("P" + human.getJoystickId() + " : A");
-			knifeWeapon.use ();
+			triggerAllAnimators (animatorsArmKnife,"attackTrigger"); 
 		}
 		if (Input.GetKeyDown (xboxInput.B)) {
 			Debug.Log ("P" + human.getJoystickId() + " : B"); 
@@ -119,7 +131,7 @@ public class HumanController : MonoBehaviour
 			Debug.Log ("P" + human.getJoystickId() + " : X"); 
 			if(human.getAmmo()>0){
 				human.removeAmmo ();
-				triggerAllAnimators ("shootTrigger");  //Trigger Animation which will call function from BulletSpawner.cs
+				triggerAllAnimators (animatorsArm,"shootTrigger");  //Trigger Animation which will call function from BulletSpawner.cs
 			}
 		}
 		if (Input.GetKeyDown (xboxInput.Y)) {

@@ -13,6 +13,7 @@ public class Human {
 	[SerializeField] private int pointsToRemove;
 	[SerializeField] private int ammo;
 	[SerializeField] private int deaths;
+	[SerializeField] private bool isAlive;
 	[SerializeField] private Color color;
 	[SerializeField] private GameObject bonus;
 
@@ -27,6 +28,7 @@ public class Human {
 		bonus = b;
 		pointsToAdd = 0;
 		pointsToRemove = 0;
+		isAlive = true;
 	}
 
 	public Human(){
@@ -38,6 +40,7 @@ public class Human {
 		ammo = 2;
 		pointsToAdd = 0;
 		pointsToRemove = 0;
+		isAlive = true;
 	}
 
 	public List<int> getKilledThisRound(){
@@ -49,6 +52,7 @@ public class Human {
 		pointsToRemove = 0;
 		pointsToAdd = 0;
 		killedThisRound.Clear ();
+		isAlive = true;
 	}
 
 	public void rematchClear(){
@@ -57,6 +61,7 @@ public class Human {
 		pointsToAdd = 0;
 		currentScore = 0;
 		deaths = 0;
+		isAlive = true;
 		killedThisRound.Clear ();
 	}
 
@@ -86,6 +91,10 @@ public class Human {
 		return deaths;
 	}
 
+	public bool isDead(){
+		return !isAlive;
+	}
+
 	public void updateCurrentScore()
 	{
 		currentScore += pointsToAdd - pointsToRemove;
@@ -108,10 +117,12 @@ public class Human {
 
 	public void suicide () {
 		pointsToRemove++;
+		isAlive = false;
 	}
 
 	public void die(){
 		deaths++;
+		isAlive = false;
 	}
 
 	public int getPointsToAdd()
