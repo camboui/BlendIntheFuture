@@ -10,6 +10,9 @@ public class PlayerSelectionController : MonoBehaviour {
 	public static int nbReady;
 	private static Dictionary<int,Color> usedColors = new Dictionary<int,Color>();
 
+	public AudioSource choice;
+	public AudioSource validate;
+
 	public int playerControllerId;
 
 	private bool changedRecently;
@@ -76,10 +79,12 @@ public class PlayerSelectionController : MonoBehaviour {
 
 			//change color for player
 			if (joyStickX == 1 && !changedRecently) {
+				choice.Play ();
 				currentColor = GameVariables.getNextColorRight (currentColor,usedColors);
 				colorImages ();
 				changedRecently = true;
 			} else if (joyStickX == -1 && !changedRecently) {
+				choice.Play ();
 				currentColor = GameVariables.getNextColorLeft (currentColor,usedColors);
 				colorImages ();
 				changedRecently = true;
@@ -100,10 +105,12 @@ public class PlayerSelectionController : MonoBehaviour {
 
 			//change color for player
 			if (joyStickX == 1 && !changedRecently) {
+				choice.Play ();
 				currentBonus = GameVariables.getNextBonusRight (currentBonus);
 				bonusImages ();
 				changedRecently = true;
 			} else if (joyStickX == -1 && !changedRecently) {
+				choice.Play ();
 				currentBonus = GameVariables.getNextBonusLeft (currentBonus);
 				bonusImages ();
 				changedRecently = true;
@@ -118,6 +125,7 @@ public class PlayerSelectionController : MonoBehaviour {
 			transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (false);
 		}
 		if (Input.GetKeyDown (xboxInput.A) || Input.GetKeyDown (xboxInput.BStart)) {
+			validate.Play ();
 			int currentReady = nbReady;
 			//go to next state and update Debug.Loging
 			if (currentState < maxState) {

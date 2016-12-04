@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class CheckNewControllers : MonoBehaviour {
 
 	public Sprite selected;
+	public AudioSource selectedAudio;
 
 	private int currentPlugged;
 	private int currentAccepted;
@@ -86,6 +87,7 @@ public class CheckNewControllers : MonoBehaviour {
 					playersSelector [currentAccepted].transform.FindChild ("enabled").gameObject.SetActive (false);
 					playersSelector [currentAccepted].transform.FindChild ("Press A").gameObject.SetActive (false);
 					playersSelector [currentAccepted].transform.FindChild ("InstructionsPanel").gameObject.SetActive (true);
+					selectedAudio.Play ();
 					playersSelector [currentAccepted].GetComponent<PlayerSelectionController> ().enabled = true;
 					playersSelector [currentAccepted].GetComponent<PlayerSelectionController> ().playerControllerId = j;
 					currentAccepted++;
