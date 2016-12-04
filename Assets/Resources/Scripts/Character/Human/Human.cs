@@ -9,6 +9,7 @@ public class Human {
 	[SerializeField] private List<int> killedThisRound;
 	[SerializeField] private int joystickId;
 	[SerializeField] private int wins;
+	[SerializeField] private int ammo;
 	[SerializeField] private int deaths;
 	[SerializeField] private Color color;
 	[SerializeField] private GameObject bonus;
@@ -17,6 +18,7 @@ public class Human {
 	public Human(int joyId, Color c, GameObject b){
 		killedThisRound = new List<int> ();
 		joystickId = joyId;
+		ammo = 2;
 		wins = 0;
 		deaths = 0;
 		color = c;
@@ -29,6 +31,7 @@ public class Human {
 		wins = 0;
 		deaths = 0;
 		color = Color.blue;
+		ammo = 2;
 	}
 
 	public List<int> getKilledThisRound(){
@@ -45,6 +48,15 @@ public class Human {
 		killedThisRound.Clear ();
 	}
 
+	public int getAmmo()
+	{
+		return ammo;
+	}
+
+	public void removeAmmo()
+	{
+		ammo--;
+	}
 
 	public int getJoystickId(){
 		return joystickId;

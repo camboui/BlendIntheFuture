@@ -120,7 +120,10 @@ public class HumanController : MonoBehaviour
 		}
 		if (Input.GetKeyDown (xboxInput.X)) {
 			Debug.Log ("P" + human.getJoystickId() + " : X"); 
-			triggerAllAnimators ("shootTrigger");  //Trigger Animation which will call function from BulletSpawner.cs
+			if(human.getAmmo()>0){
+				human.removeAmmo ();
+				triggerAllAnimators ("shootTrigger");  //Trigger Animation which will call function from BulletSpawner.cs
+			}
 		}
 		if (Input.GetKeyDown (xboxInput.Y)) {
 			Debug.Log ("P" + human.getJoystickId() + " : Y");      
