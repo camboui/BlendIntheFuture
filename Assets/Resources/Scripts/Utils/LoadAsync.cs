@@ -19,7 +19,7 @@ public class LoadAsync : MonoBehaviour {
 	public void Load()
 	{
 		loadingImage.SetActive (true);
-		//StartCoroutine (LoadLevelWithBar (scene));
+		StartCoroutine (LoadLevelWithBar (scene));
 	}
 
 	IEnumerator LoadLevelWithBar (string level)
