@@ -45,7 +45,8 @@ public class PlayerSelectionController : MonoBehaviour {
 		//Different states of validation 
 		currentState = 0;
 		text = transform.FindChild ("Press A").GetComponent<Text> ();
-		textState = new List<string> (){ "Choose Color (A)","Choose Bonus (A)","Ready ? (A)","Ready !"};
+		text = transform.FindChild ("Press A/TextSelection").GetComponent<Text> ();
+		textState = new List<string> (){ "Choose Color","Choose Bonus","Ready ?","Ready !"};
 		maxState = textState.Count;
 		text.text = textState [currentState];
 
@@ -67,6 +68,7 @@ public class PlayerSelectionController : MonoBehaviour {
 
 		float joyStickX = xboxInput.getXaxis ();
 
+		//Color choice
 		//prevent from infinite change
 		if (currentState == 0) {
 			if (joyStickX < 0.5f && joyStickX > -0.5f)
@@ -88,6 +90,8 @@ public class PlayerSelectionController : MonoBehaviour {
 				colorImages ();
 			}
 		}
+
+		//Bonus Choice
 		if (currentState == 1) {
 			bonusGO.SetActive(true);
 			if (joyStickX < 0.5f && joyStickX > -0.5f)
