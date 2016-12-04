@@ -10,6 +10,7 @@ public class DescriptionMenuController : MonoBehaviour {
 	public GameObject parent;
 
 	private List<Text> associatedPlayerText;
+	private List<Image> associatedPlayerImage;
 	private List<bool> arePlayersReady;
 	private List<XboxInput> xboxInputs;
 	private int nbPlayers;
@@ -19,6 +20,7 @@ public class DescriptionMenuController : MonoBehaviour {
 		xboxInputs = new List<XboxInput> ();
 		arePlayersReady = new List<bool> ();
 		associatedPlayerText = new List<Text> ();
+		associatedPlayerImage = new List<Image> ();
 		nbPlayers = GameVariables.players.Count;
 		nbReadyPlayers = 0;
 
@@ -29,9 +31,13 @@ public class DescriptionMenuController : MonoBehaviour {
 			GameObject newGO = Instantiate (prefab_ready,parent.transform) as GameObject;
 			newGO.transform.localScale = new Vector3 (1, 1, 0);
 
-			Text temp = newGO.GetComponent<Text> ();
+			Text temp = newGO.transform.FindChild("NextText").GetComponent<Text> ();
 			temp.color = GameVariables.players [i].getColor ();
 			associatedPlayerText.Add (temp);
+
+			Image tempI = newGO.transform.FindChild("NextImage").GetComponent<Image> ();
+			tempI.color = GameVariables.players [i].getColor ();
+			associatedPlayerImage.Add (tempI);
 		}
 	}
 
@@ -56,6 +62,7 @@ public class DescriptionMenuController : MonoBehaviour {
 					arePlayersReady [j] = true;
 				}
 				associatedPlayerText [j].text = "Ready";
+				associatedPlayerImage [j].gameObject.SetActive (false);
 
 				if (nbReadyPlayers == nbPlayers)
 					SceneManager.LoadScene ("GameLoop");
