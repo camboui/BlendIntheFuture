@@ -64,8 +64,8 @@ public class GameVariables : MonoBehaviour {
 		};
 
 		nbBonus = bonus.Count;
-		//This is scene 0, load scene 1
-		SceneManager.LoadScene (1);
+
+		SceneManager.LoadScene ("MainMenu");
 	}
 
 	//return next right color from the list according to current position
