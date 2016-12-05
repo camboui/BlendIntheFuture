@@ -16,6 +16,7 @@ public class PlayerSelectionController : MonoBehaviour {
 
 	public int playerControllerId;
 
+	public int nbPlayers;
 	private bool changedRecently;
 	private Color currentColor;
 	private List<Image> imagesToColor;
@@ -45,7 +46,6 @@ public class PlayerSelectionController : MonoBehaviour {
 		colorImages ();
 		bonusImages ();
 		playText = GameObject.Find ("Play").GetComponent<Text>();
-		playText.enabled = false;
 
 		//Different states of validation 
 		currentState = 0;
@@ -71,6 +71,7 @@ public class PlayerSelectionController : MonoBehaviour {
 	}
 
 	void Update () {
+
 		float joyStickX = xboxInput.getXaxis ();
 
 		//Color choice
@@ -138,19 +139,16 @@ public class PlayerSelectionController : MonoBehaviour {
 					usedColors.Add (playerControllerId, currentColor);
 
 				if (currentState == maxState-1)
-					nbReady++;
+						nbReady++;
 				if (currentState < maxState)
 					text.text = textState [currentState];
 
 			}
-
 			//if there are enough player, show "Play" text
-			if (nbReady == CheckNewControllers.inGamePlayers && CheckNewControllers.inGamePlayers >= GameVariables.minPlayers) {
+			if (currentReady <= 1 && nbReady >= GameVariables.minPlayers && nbReady >= GameObject.Find ("CheckNewControllers").transform.GetComponent<CheckNewControllers> ().GetNbPlayers ()) {
 				playText.enabled = true;
-			} else {
-					playText.enabled = false;
 			}
-			if(currentState == maxState && nbReady==CheckNewControllers.inGamePlayers) {
+			if (currentState == maxState && currentReady >= GameVariables.minPlayers && currentReady >= GameObject.Find ("CheckNewControllers").transform.GetComponent<CheckNewControllers> ().GetNbPlayers () ) {
 				SceneManager.LoadScene ("ModeSelectionMenu"); 
 			}
 
@@ -188,7 +186,7 @@ public class PlayerSelectionController : MonoBehaviour {
 				text.text = textState [currentState];
 			}
 			//if there are not enough player, hide "Play" text
-			if (nbReady < CheckNewControllers.inGamePlayers) {
+			if (nbReady < GameVariables.minPlayers) {
 				playText.enabled = false;
 
 			}
@@ -205,4 +203,3 @@ public class PlayerSelectionController : MonoBehaviour {
 
 
 }
-

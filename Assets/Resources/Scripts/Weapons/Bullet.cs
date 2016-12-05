@@ -3,14 +3,14 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
-	private float bulletSpeed;
+//	private float bulletSpeed;
 	public Human humanOwner;
 
 
 	public void initialiseBullet(Human humanOwner,float bulletSpeed)
 	{
 		this.humanOwner = humanOwner;
-		this.bulletSpeed = bulletSpeed;
+//		this.bulletSpeed = bulletSpeed;
 		transform.parent.parent.GetComponent<Rigidbody2D> ().velocity = new Vector2 (bulletSpeed, 0);
 	}
 
