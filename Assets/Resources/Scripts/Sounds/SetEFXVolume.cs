@@ -5,10 +5,12 @@ using UnityEngine.UI;
 public class SetEFXVolume : MonoBehaviour {
 
 	public Slider VolumeBar;
-	public AudioSource[] audioSource;
 
+	public void Awake(){
+		VolumeBar.value = SoundManager.instance.efxSource.volume;
+	}
+		
 	public void EFXVolume () {
-		for (int i = 0; i < audioSource.Length ; i++)
-			audioSource[i].volume = VolumeBar.value;
+		SoundManager.instance.efxSource.volume = VolumeBar.value;
 	}
 }

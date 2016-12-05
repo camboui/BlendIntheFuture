@@ -15,9 +15,6 @@ public class GameVariables : MonoBehaviour {
 	public static List<GameObject> bonus;
 	public static bool pausedGame;
 
-	public static int musicVol;
-	public static int sfxVol;
-
 	public static int nbRound = 5;
 	public static int maxPlayers = 4;
 	public static int minPlayers = 1;
@@ -37,9 +34,6 @@ public class GameVariables : MonoBehaviour {
 		DontDestroyOnLoad (gameObject);
 		players = new List<Human> ();
 		customScripts = new List<String> ();
-
-		musicVol = 1;
-		sfxVol = 1;
 
 		pausedGame = false;
 
