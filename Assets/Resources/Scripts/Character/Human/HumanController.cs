@@ -9,6 +9,7 @@ public class HumanController : MonoBehaviour
 	public float movementSpeed;
 	public Human human;
 	public Transform rendererContainer;
+	public int modeDirection; // 1 or -1, normal 1, inverted -1
 
 	private Vector3 movementVector;
 	private Collider2D mapCollider;
@@ -30,7 +31,7 @@ public class HumanController : MonoBehaviour
 	{
 		// clear round values for this player
 		human.startNewRound (); 
-
+		modeDirection = 1;
 		movementSpeed = GameVariables.charactersSpeed;
 			
 		//Set orientation
@@ -83,7 +84,7 @@ public class HumanController : MonoBehaviour
 		}
 
 		//X and Y axis are defined in Edit/Project Settings/Input
-		movementVector.x = xboxInput.getXaxis () * movementSpeed * Time.deltaTime;
+		movementVector.x = modeDirection * xboxInput.getXaxis () * movementSpeed * Time.deltaTime;
 		if (movementVector.x!=0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + new Vector3(movementVector.x,0,0))))  {
 			rgdby.MovePosition (transform.position + movementVector);
 			changeAllAnimatorsBool (animatorsBody,"isWalking", true);
@@ -95,7 +96,7 @@ public class HumanController : MonoBehaviour
 
 		}
 
-		movementVector.y = xboxInput.getYaxis () * movementSpeed * Time.deltaTime;
+		movementVector.y = modeDirection * xboxInput.getYaxis () * movementSpeed * Time.deltaTime;
 		if (movementVector.y!=0f && mapCollider.OverlapPoint ((Vector2)(groundPosition.position + new Vector3(0,movementVector.y,0))))  {
 			rgdby.MovePosition (transform.position + movementVector);
 			changeAllAnimatorsBool (animatorsBody,"isWalking", true);

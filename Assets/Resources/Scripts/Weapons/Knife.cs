@@ -17,6 +17,7 @@ public class Knife : MonoBehaviour {
 		if (parentGO != null ) {
 			print ("HIT : " + parentGO.name);
 			if (parentGO.tag.Equals ("AI")) {
+				humanOwner.AIKilled ();
 				Destroy (parentGO);
 			} else if (parentGO.tag.Equals ("Player")) {
 				humanOwner.getKilledThisRound ().Add (parentGO.GetComponent<HumanController> ().human.getJoystickId ());

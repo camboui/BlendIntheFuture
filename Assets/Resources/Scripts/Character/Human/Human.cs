@@ -5,7 +5,8 @@ using System;
 
 [Serializable]
 public class Human {
-
+	
+	[SerializeField] private int numberAIKilled;
 	[SerializeField] private List<int> killedThisRound;
 	[SerializeField] private int joystickId;
 	[SerializeField] private int currentScore;
@@ -53,6 +54,7 @@ public class Human {
 		pointsToAdd = 0;
 		killedThisRound.Clear ();
 		isAlive = true;
+		numberAIKilled = 0;
 	}
 
 	public void rematchClear(){
@@ -63,11 +65,27 @@ public class Human {
 		deaths = 0;
 		isAlive = true;
 		killedThisRound.Clear ();
+		numberAIKilled = 0;
 	}
 
 	public int getAmmo()
 	{
 		return ammo;
+	}
+
+	public int getNumberAIKilled()
+	{
+		return numberAIKilled;
+	}
+
+	public void resetNumberAIKilled()
+	{
+		numberAIKilled = 0;
+	}
+
+	public void AIKilled()
+	{
+		numberAIKilled++;
 	}
 
 	public void removeAmmo()
