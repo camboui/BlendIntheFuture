@@ -65,7 +65,7 @@ public class PlayerSelectionController : MonoBehaviour {
 
 	void bonusImages(){
 		Debug.Log ("TODO change image bonus");
-		bonusImage.color = currentBonus.GetComponent<Image> ().color;
+		bonusImage.sprite = currentBonus.GetComponent<Image> ().sprite;
 	}
 
 	void Update () {
@@ -120,7 +120,8 @@ public class PlayerSelectionController : MonoBehaviour {
 			bonusGO.SetActive(false);
 		}
 		if (currentState == 2 && !changedRecently) {
-			transform.FindChild ("Player").gameObject.SetActive (true);
+			transform.FindChild ("Both/Bonus").transform.GetComponent<Image>().sprite = currentBonus.GetComponent<Image> ().sprite;
+			transform.FindChild ("Both").gameObject.SetActive (true);
 		}
 		if (currentState == (maxState -1) && !changedRecently) {
 			transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (false);
@@ -171,9 +172,11 @@ public class PlayerSelectionController : MonoBehaviour {
 					break;
 				case 1:
 					transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (true);
+					transform.FindChild ("Both").gameObject.SetActive (false);
 					break;
 				case 2:
 					transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (true);
+					transform.FindChild ("Both").gameObject.SetActive (true);
 					break;
 				default:
 					break;
