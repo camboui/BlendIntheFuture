@@ -9,6 +9,7 @@ public class CheckNewControllers : MonoBehaviour {
 
 	public Sprite selected;
 	public AudioClip selectedAudio;
+	public static int inGamePlayers = 0;
 
 	private int currentPlugged;
 	private int currentAccepted;
@@ -22,6 +23,8 @@ public class CheckNewControllers : MonoBehaviour {
 		PlayerSelectionController.nbReady=0;
 		GameVariables.players.Clear ();
 		xboxInputs = new List<XboxInput> ();
+
+		GameObject.Find ("Play").GetComponent<Text> ().enabled = false;
 
 		playersSelector = new List<GameObject> ();
 		for (int i = 1; i <= 4; i++) {
@@ -81,6 +84,7 @@ public class CheckNewControllers : MonoBehaviour {
 			//Player joins the game, change Debug.Loging and activate script on Gameobject
 			if (Input.GetKeyDown (xboxInputs[j-1].A)) {
 				if (!pluggedControllersId.Contains (j)) {
+					inGamePlayers++;
 					pluggedControllersId.Add (j);
 					playersSelector [currentAccepted].transform.FindChild ("Background").GetComponent<Image> ().sprite = selected;
 					playersSelector [currentAccepted].transform.FindChild ("Player").gameObject.SetActive(true);
@@ -92,6 +96,7 @@ public class CheckNewControllers : MonoBehaviour {
 					playersSelector [currentAccepted].GetComponent<PlayerSelectionController> ().enabled = true;
 					playersSelector [currentAccepted].GetComponent<PlayerSelectionController> ().playerControllerId = j;
 					currentAccepted++;
+
 				}
 			}
 			if (Input.GetKeyDown (xboxInputs [j - 1].B) && !pluggedControllersId.Contains (j)) {

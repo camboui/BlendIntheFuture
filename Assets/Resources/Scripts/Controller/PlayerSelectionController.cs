@@ -45,6 +45,7 @@ public class PlayerSelectionController : MonoBehaviour {
 		colorImages ();
 		bonusImages ();
 		playText = GameObject.Find ("Play").GetComponent<Text>();
+		playText.enabled = false;
 
 		//Different states of validation 
 		currentState = 0;
@@ -70,7 +71,6 @@ public class PlayerSelectionController : MonoBehaviour {
 	}
 
 	void Update () {
-
 		float joyStickX = xboxInput.getXaxis ();
 
 		//Color choice
@@ -143,11 +143,14 @@ public class PlayerSelectionController : MonoBehaviour {
 					text.text = textState [currentState];
 
 			}
+
 			//if there are enough player, show "Play" text
-			if (currentReady <= 1 && nbReady >= GameVariables.minPlayers) {
+			if (nbReady == CheckNewControllers.inGamePlayers && CheckNewControllers.inGamePlayers >= GameVariables.minPlayers) {
 				playText.enabled = true;
+			} else {
+					playText.enabled = false;
 			}
-			if (currentState == maxState && currentReady >= GameVariables.minPlayers) {
+			if(currentState == maxState && nbReady==CheckNewControllers.inGamePlayers) {
 				SceneManager.LoadScene ("ModeSelectionMenu"); 
 			}
 
@@ -185,7 +188,7 @@ public class PlayerSelectionController : MonoBehaviour {
 				text.text = textState [currentState];
 			}
 			//if there are not enough player, hide "Play" text
-			if (nbReady < GameVariables.minPlayers) {
+			if (nbReady < CheckNewControllers.inGamePlayers) {
 				playText.enabled = false;
 
 			}

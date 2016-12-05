@@ -67,6 +67,16 @@ public class DescriptionMenuController : MonoBehaviour {
 				if (nbReadyPlayers == nbPlayers)
 					SceneManager.LoadScene ("GameLoop");
 			}
+			if (Input.GetKeyDown (xboxInputs[j].B)) {
+				if (!arePlayersReady [j]) {
+					SceneManager.LoadScene ("ModeSelectionMenu");
+				} else {
+					nbReadyPlayers--;
+					arePlayersReady [j] = false;
+					associatedPlayerText [j].text = "Next";
+					associatedPlayerImage [j].gameObject.SetActive (true);
+				}
+			}
 		}
 	}
 }
