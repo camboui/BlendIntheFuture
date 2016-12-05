@@ -7,7 +7,7 @@ public class ForceMapFitScreen : MonoBehaviour {
 	SpriteRenderer sr;	
 	private Transform groundPosition;
 
-	void Start () { 
+	void Awake () { 
 
 		sr = gameObject.GetComponent<SpriteRenderer> ();
 		transform.localScale = new Vector3(1,1,1);

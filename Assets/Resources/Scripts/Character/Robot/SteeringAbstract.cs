@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public abstract class SteeringAbstract : MonoBehaviour {
 
+	[SerializeField]
+	protected Vector3 groundOffset;
 	public float Speed;
 	private Vector3 wayPoint;
 	protected float timer;
@@ -32,6 +34,7 @@ public abstract class SteeringAbstract : MonoBehaviour {
 			isWaitingForNewPoint = false;
 
 		Transform rendererContainer = transform.FindChild("Renderers");
+		groundOffset= transform.FindChild ("GroundCheck").transform.localPosition;
 
 		animatorsBody = new List<Animator> ();
 		animatorsArm = new List<Animator> ();

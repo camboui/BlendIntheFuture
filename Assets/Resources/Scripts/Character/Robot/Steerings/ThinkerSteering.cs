@@ -11,7 +11,7 @@ public class ThinkerSteering : SteeringAbstract {
 	protected override Vector3 NextPoint()
 	{
 		timer = Time.time + Random.Range (0f,thinkTime);
-		Vector3 next = GameCreator.randomPosOnMap ();
+		Vector3 next = GameCreator.randomPosOnMap (groundOffset);
 		next.x += Random.Range (-range, range);
 		isWaitingForNewPoint = false;
 		return next;
