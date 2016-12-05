@@ -20,6 +20,7 @@ public class Bullet : MonoBehaviour {
 		if (parentGO != null ) {
 			print ("BULLET HIT : " + parentGO.name);
 			if (parentGO.tag.Equals ("AI")) {
+				humanOwner.AIKilled ();
 				Destroy (parentGO);
 				Destroy (transform.parent.parent.gameObject);
 			} else if (parentGO.tag.Equals ("Player")) {
