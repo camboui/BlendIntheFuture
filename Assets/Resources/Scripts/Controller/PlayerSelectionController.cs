@@ -158,14 +158,16 @@ public class PlayerSelectionController : MonoBehaviour {
 			}
 			//go to previous state and update Debug.Loging
 			if (currentState > 0) {
-				if (currentState == maxState-1)
+				if (currentState == maxState - 1) {
 					nbReady--;
+				}
 
 				currentState--;
 				switch (currentState) {
 				case 0:
 					transform.FindChild ("Player").gameObject.SetActive(true);
 					transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (true);
+					usedColors.Remove (playerControllerId);
 					break;
 				case 1:
 					transform.FindChild ("InstructionsPanel/Validate").gameObject.SetActive (true);
@@ -181,7 +183,7 @@ public class PlayerSelectionController : MonoBehaviour {
 			//if there are not enough player, hide "Play" text
 			if (nbReady < GameVariables.minPlayers) {
 				playText.enabled = false;
-				usedColors.Remove (playerControllerId);
+
 			}
 		}
 	}
