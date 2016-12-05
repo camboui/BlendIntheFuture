@@ -10,7 +10,7 @@ public class GameCreator : MonoBehaviour {
 	public GameObject prefab_player;
 	public GameObject prefab_IA;
 	public Transform parentIA;
-	private int nbIA=30;//TODO make classes for game data
+	private int nbIA=35;//TODO make classes for game data
 	private static Bounds mapBounds;
 
 	void Start () {
@@ -63,7 +63,6 @@ public class GameCreator : MonoBehaviour {
 	public static Vector3 randomPosOnMap(Vector3 offset)
 	{
 		return new Vector3 (mapBounds.center.x+ Random.Range (-mapBounds.extents.x, mapBounds.extents.x)-offset.x, mapBounds.center.y + Random.Range (-mapBounds.extents.y, mapBounds.extents.y)-offset.y, 0);
-
 	}
 
 }

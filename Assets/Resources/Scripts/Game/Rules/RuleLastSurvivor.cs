@@ -10,8 +10,8 @@ public class RuleLastSurvivor : MonoBehaviour {
 	void Start () {
 		if (nextSceneName == null || nextSceneName.Equals(""))
 			nextSceneName = "EndGame";
-		//Check rule Every 1 second. Let some time for draw 
-		InvokeRepeating("checkEndGame", 1.0f, 1.0f);
+		//Check rule Every 2second. Let some time for draw 
+		//InvokeRepeating("checkEndGame", 1.0f, 2.0f);
 	}
 
 	void checkEndGame()

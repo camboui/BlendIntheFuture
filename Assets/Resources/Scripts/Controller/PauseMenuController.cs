@@ -18,7 +18,7 @@ public class PauseMenuController : MonoBehaviour {
 
 		MonoBehaviour[] scripts = GameObject.FindObjectsOfType<MonoBehaviour> ();
 		foreach (MonoBehaviour p in scripts) {
-			if (GameVariables.customScripts.Contains (p.GetType ().ToString ()) && !p.Equals (thisScript)) {
+			if (GameVariables.customScripts.Contains (p.GetType ().ToString ()) && !p.Equals (thisScript) && p.enabled) {
 				disabledScripts.Add (p);
 				p.enabled = false;
 			}

@@ -26,13 +26,6 @@ public abstract class SteeringAbstract : MonoBehaviour {
 		Speed = GameVariables.charactersSpeed;
 		rgdby = gameObject.GetComponent<Rigidbody2D> ();
 
-		wayPoint = NextPoint ();
-		timer = Time.time + delayTime;
-		if (Random.Range (0, 2) == 1)
-			isWaitingForNewPoint = true;
-		else
-			isWaitingForNewPoint = false;
-
 		Transform rendererContainer = transform.FindChild("Renderers");
 		groundOffset= transform.FindChild ("GroundCheck").transform.localPosition;
 
@@ -44,6 +37,12 @@ public abstract class SteeringAbstract : MonoBehaviour {
 			animatorsArm.Add (rendererContainer.GetChild (i).FindChild("arm").GetComponent<Animator> ());
 		}
 
+		wayPoint = NextPoint ();
+		timer = Time.time + delayTime;
+		if (Random.Range (0, 2) == 1)
+			isWaitingForNewPoint = true;
+		else
+			isWaitingForNewPoint = false;
 	}
 	
 	void Update()
