@@ -58,7 +58,7 @@ public class CheckNewControllers : MonoBehaviour {
 
 	public int GetNbPlayers(){
 		//return pluggedControllersId.Count;
-		return currentPlugged;
+		return currentAccepted;
 	}
 
 
@@ -69,14 +69,17 @@ public class CheckNewControllers : MonoBehaviour {
 
 
 		if (newPlugged != currentPlugged) {
+			
 			//Reaload scene if a controller is removed
 			if (newPlugged < currentPlugged) {
 				SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
 			} else {
 				//Change Debug.Loging if controller is added
-				for (int j = currentPlugged + 1; j <= newPlugged - currentPlugged + 1; j++) {
-					playersSelector [j - 1].transform.FindChild ("enabled").gameObject.SetActive (true);
-					playersSelector [j - 1].transform.FindChild ("disabled").gameObject.SetActive (false);
+				for (int j = currentPlugged - 1; j < newPlugged; j++) {
+					if (j > currentAccepted - 1) {
+						playersSelector [j].transform.FindChild ("enabled").gameObject.SetActive (true);
+						playersSelector [j].transform.FindChild ("disabled").gameObject.SetActive (false);
+					}
 				}
 			}
 			currentPlugged = newPlugged;
@@ -84,12 +87,12 @@ public class CheckNewControllers : MonoBehaviour {
 
 		for (int j = 1; j <= 4; j++) {
 			//Player joins the game, change Debug.Loging and activate script on Gameobject
-			if (Input.GetKeyDown (xboxInputs[j-1].A)) {
+			if (Input.GetKeyDown (xboxInputs [j - 1].A)) {
 				if (!pluggedControllersId.Contains (j)) {
 					pluggedControllersId.Add (j);
 					playersSelector [currentAccepted].transform.FindChild ("Background").GetComponent<Image> ().sprite = selected;
-					playersSelector [currentAccepted].transform.FindChild ("Player").gameObject.SetActive(true);
-					playersSelector [currentAccepted].transform.FindChild ("PlayerNumber").gameObject.SetActive(true);
+					playersSelector [currentAccepted].transform.FindChild ("Player").gameObject.SetActive (true);
+					playersSelector [currentAccepted].transform.FindChild ("PlayerNumber").gameObject.SetActive (true);
 					playersSelector [currentAccepted].transform.FindChild ("enabled").gameObject.SetActive (false);
 					playersSelector [currentAccepted].transform.FindChild ("Press A").gameObject.SetActive (false);
 					playersSelector [currentAccepted].transform.FindChild ("InstructionsPanel").gameObject.SetActive (true);

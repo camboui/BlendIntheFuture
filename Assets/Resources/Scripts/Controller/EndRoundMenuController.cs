@@ -127,6 +127,6 @@ public class EndRoundMenuController : MonoBehaviour {
 	}
 
 	public void goToMainMenu(){
-		SceneManager.LoadScene ("MainMenu");
+		SceneManager.LoadScene ("ModeSelectionMenu");
 	}
 }

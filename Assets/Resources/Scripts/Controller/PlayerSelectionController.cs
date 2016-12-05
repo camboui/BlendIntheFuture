@@ -47,6 +47,10 @@ public class PlayerSelectionController : MonoBehaviour {
 		bonusImages ();
 		playText = GameObject.Find ("Play").GetComponent<Text>();
 
+		if (nbReady < GameObject.Find ("CheckNewControllers").transform.GetComponent<CheckNewControllers> ().GetNbPlayers ()) {
+			playText.enabled = false;
+		}
+
 		//Different states of validation 
 		currentState = 0;
 		text = transform.FindChild ("InstructionsPanel/Instructions").GetComponent<Text> ();
@@ -145,7 +149,7 @@ public class PlayerSelectionController : MonoBehaviour {
 
 			}
 			//if there are enough player, show "Play" text
-			if (currentReady <= 1 && nbReady >= GameVariables.minPlayers && nbReady >= GameObject.Find ("CheckNewControllers").transform.GetComponent<CheckNewControllers> ().GetNbPlayers ()) {
+			if (nbReady >= GameVariables.minPlayers && nbReady >= GameObject.Find ("CheckNewControllers").transform.GetComponent<CheckNewControllers> ().GetNbPlayers ()) {
 				playText.enabled = true;
 			}
 			if (currentState == maxState && currentReady >= GameVariables.minPlayers && currentReady >= GameObject.Find ("CheckNewControllers").transform.GetComponent<CheckNewControllers> ().GetNbPlayers () ) {
@@ -186,9 +190,8 @@ public class PlayerSelectionController : MonoBehaviour {
 				text.text = textState [currentState];
 			}
 			//if there are not enough player, hide "Play" text
-			if (nbReady < GameVariables.minPlayers) {
+			if (nbReady < GameObject.Find ("CheckNewControllers").transform.GetComponent<CheckNewControllers> ().GetNbPlayers ()) {
 				playText.enabled = false;
-
 			}
 		}
 	}
