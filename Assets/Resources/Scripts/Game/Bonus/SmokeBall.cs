@@ -10,7 +10,7 @@ public class SmokeBall : Bonus_Abstract {
 	// Use this for initialization
 	void Start () {
 		gameObject.GetComponentInChildren<ParticleSystem> ().transform.position = 
-			new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
+			new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z-1);
 		gameObject.GetComponentInChildren<ParticleSystem> ().Play (); 
 	}
 

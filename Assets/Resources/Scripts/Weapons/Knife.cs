@@ -13,7 +13,7 @@ public class Knife : MonoBehaviour {
 	}
 		
 	protected void OnTriggerEnter2D(Collider2D other) {
-		GameObject parentGO = other.transform.parent.parent.gameObject;
+		GameObject parentGO =  findParent(other.transform);
 		if (parentGO != null ) {
 			print ("HIT : " + parentGO.name);
 			if (parentGO.tag.Equals ("AI")) {
@@ -26,6 +26,15 @@ public class Knife : MonoBehaviour {
 		}
 	}
 
+	private GameObject findParent(Transform current)
+	{
+		if (current == null)
+			return null;
 
+		if (current.tag.Equals ("AI") || current.tag.Equals ("Player"))
+			return current.gameObject;
+
+		return findParent (current.parent);
+	}
 
 }
