@@ -29,12 +29,14 @@ public class RuleKillingAI : MonoBehaviour {
 	void checkRule()
 	{
 		foreach (HumanController current in humanControllers) {
-			if (current.human.getNumberAIKilled() >= max) {
+			if (current!= null && current.human.getNumberAIKilled() >= max) {
 				Malus_Abstract malus = aleaMalus();
 				malus.humanController = current; 
 				malus.enabled = true;
+
 				Instantiate (malus, current.transform);
 				current.human.resetNumberAIKilled ();
+
 			}
 		}
 	}

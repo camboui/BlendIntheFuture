@@ -10,6 +10,9 @@ public class Knife : MonoBehaviour {
 	void Start()
 	{
 		this.humanOwner =transform.parent.parent.parent.parent.GetComponent<HumanController> ().human;
+		if (!transform.parent.parent.name.Equals ("mainRenderer")) {
+			Destroy (gameObject);
+		}
 	}
 		
 	protected void OnTriggerEnter2D(Collider2D other) {
@@ -22,7 +25,6 @@ public class Knife : MonoBehaviour {
 			} else if (parentGO.tag.Equals ("Player")) {
 				humanOwner.getKilledThisRound ().Add (parentGO.GetComponent<HumanController> ().human.getJoystickId ());
 				Destroy (parentGO);
-				Destroy (gameObject);
 			}
 		}
 	}
