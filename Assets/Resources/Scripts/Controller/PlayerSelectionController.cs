@@ -64,7 +64,8 @@ public class PlayerSelectionController : MonoBehaviour {
 
 
 	void bonusImages(){
-		Debug.Log ("TODO change image bonus");
+		Debug.Log ("Remove Color");
+		bonusImage.color = currentBonus.GetComponent<Image> ().color;
 		bonusImage.sprite = currentBonus.GetComponent<Image> ().sprite;
 	}
 
