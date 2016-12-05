@@ -63,28 +63,23 @@ public abstract class SteeringAbstract : MonoBehaviour {
 				else
 					transform.localScale = leftOrientationScale;
 			} else {
-				changeAllAnimatorsBool(animatorsBody,"isWalking", false);
-				changeAllAnimatorsBool(animatorsArm,"isWalking", false);
 				wayPoint = NextPoint ();
+				if (Time.time < timer) {
+					changeAllAnimatorsBool (animatorsBody, "isWalking", false);
+					changeAllAnimatorsBool (animatorsArm, "isWalking", false);
+				}
 			}
 		}
 	}
 
 
-	private void changeAllAnimatorsBool(List<Animator> animators, string boolname, bool value)
+	protected void changeAllAnimatorsBool(List<Animator> animators, string boolname, bool value)
 	{
 		foreach (Animator anm in animators) {
 			anm.SetBool (boolname,value);
 		}
 	}
-
-	private void triggerAllAnimators(List<Animator> animators,string triggerName)
-	{
-		foreach (Animator anm in animators) {
-			anm.SetTrigger (triggerName);
-		}
-	}
-
+		
 
 	protected abstract Vector3 NextPoint ();
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 //using UnityEditor;
 
+
 public class GameCreator : MonoBehaviour {
 	
 	public static List<Human> remainingPlayers;
