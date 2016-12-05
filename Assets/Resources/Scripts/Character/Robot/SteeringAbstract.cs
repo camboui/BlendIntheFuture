@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public abstract class SteeringAbstract : MonoBehaviour {
 
+	[SerializeField]
+	protected Vector3 groundOffset;
 	public float Speed;
 	private Vector3 wayPoint;
 	protected float timer;
@@ -24,14 +26,8 @@ public abstract class SteeringAbstract : MonoBehaviour {
 		Speed = GameVariables.charactersSpeed;
 		rgdby = gameObject.GetComponent<Rigidbody2D> ();
 
-		wayPoint = NextPoint ();
-		timer = Time.time + delayTime;
-		if (Random.Range (0, 2) == 1)
-			isWaitingForNewPoint = true;
-		else
-			isWaitingForNewPoint = false;
-
 		Transform rendererContainer = transform.FindChild("Renderers");
+		groundOffset= transform.FindChild ("GroundCheck").transform.localPosition;
 
 		animatorsBody = new List<Animator> ();
 		animatorsArm = new List<Animator> ();
@@ -41,6 +37,12 @@ public abstract class SteeringAbstract : MonoBehaviour {
 			animatorsArm.Add (rendererContainer.GetChild (i).FindChild("arm").GetComponent<Animator> ());
 		}
 
+		wayPoint = NextPoint ();
+		timer = Time.time + delayTime;
+		if (Random.Range (0, 2) == 1)
+			isWaitingForNewPoint = true;
+		else
+			isWaitingForNewPoint = false;
 	}
 	
 	void Update()
@@ -60,28 +62,23 @@ public abstract class SteeringAbstract : MonoBehaviour {
 				else
 					transform.localScale = leftOrientationScale;
 			} else {
-				changeAllAnimatorsBool(animatorsBody,"isWalking", false);
-				changeAllAnimatorsBool(animatorsArm,"isWalking", false);
 				wayPoint = NextPoint ();
+				if (Time.time < timer) {
+					changeAllAnimatorsBool (animatorsBody, "isWalking", false);
+					changeAllAnimatorsBool (animatorsArm, "isWalking", false);
+				}
 			}
 		}
 	}
 
 
-	private void changeAllAnimatorsBool(List<Animator> animators, string boolname, bool value)
+	protected void changeAllAnimatorsBool(List<Animator> animators, string boolname, bool value)
 	{
 		foreach (Animator anm in animators) {
 			anm.SetBool (boolname,value);
 		}
 	}
-
-	private void triggerAllAnimators(List<Animator> animators,string triggerName)
-	{
-		foreach (Animator anm in animators) {
-			anm.SetTrigger (triggerName);
-		}
-	}
-
+		
 
 	protected abstract Vector3 NextPoint ();
 

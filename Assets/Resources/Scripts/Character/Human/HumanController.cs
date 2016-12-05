@@ -93,6 +93,7 @@ public class HumanController : MonoBehaviour
 				transform.localScale = rightOrientationScale;
 			else
 				transform.localScale = leftOrientationScale;
+
 		}
 
 		movementVector.y = modeDirection * xboxInput.getYaxis () * movementSpeed * Time.deltaTime;

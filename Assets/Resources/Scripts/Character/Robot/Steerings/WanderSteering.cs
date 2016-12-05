@@ -10,7 +10,7 @@ public class WanderSteering : SteeringAbstract {
 
 	protected override Vector3 NextPoint()
 	{
-		Vector3 next = GameCreator.randomPosOnMap ();
+		Vector3 next = GameCreator.randomPosOnMap (groundOffset);
 		next.x += Random.Range (-range, range);
 		isWaitingForNewPoint = false;
 		return next;

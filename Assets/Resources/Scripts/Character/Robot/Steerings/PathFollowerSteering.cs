@@ -11,7 +11,7 @@ public class PathFollowerSteering : SteeringAbstract {
 		int nbPointInPath = Random.Range (3, 5);
 		path = new List<Vector3>();
 		for (int i = 0; i < nbPointInPath; i++) {
-			path.Add (GameCreator.randomPosOnMap());
+			path.Add (GameCreator.randomPosOnMap(groundOffset));
 		}
 		base.Start ();
 	}
