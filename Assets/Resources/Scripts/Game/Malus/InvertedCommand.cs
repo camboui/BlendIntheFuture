@@ -8,6 +8,9 @@ public class InvertedCommand : Malus_Abstract {
 
 	private float currentTime;
 
+	public AudioClip invert;
+
+
 	// Use this for initialization
 	//void Start () {
 	//	Debug.Log ("P" + humanController.human.getJoystickId() + " inverted command");
@@ -19,6 +22,7 @@ public class InvertedCommand : Malus_Abstract {
 		Debug.Log ("P" + humanController.human.getJoystickId() + " inverted command");
 		currentTime = 0;
 		humanController.modeDirection = -1;
+		SoundManager.instance.RandomizeSfx (invert);
 	}
 	
 	// Update is called once per frame

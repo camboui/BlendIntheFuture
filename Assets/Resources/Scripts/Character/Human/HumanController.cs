@@ -11,6 +11,9 @@ public class HumanController : MonoBehaviour
 	public Transform rendererContainer;
 	public int modeDirection; // 1 or -1, normal 1, inverted -1
 
+	public AudioClip attack;
+	public AudioClip shot;
+
 	private Vector3 movementVector;
 	private Collider2D mapCollider;
 	private Transform groundPosition;
@@ -108,12 +111,12 @@ public class HumanController : MonoBehaviour
 			changeAllAnimatorsBool (animatorsArm,"isWalking", false);
 
 		}
-
-		
+			
 
 		if (Input.GetKeyDown (xboxInput.A)) {
 			Debug.Log ("P" + human.getJoystickId() + " : A");
 			triggerAllAnimators (animatorsArmKnife,"attackTrigger"); 
+			SoundManager.instance.RandomizeSfx (attack);
 		}
 		if (Input.GetKeyDown (xboxInput.B)) {
 			Debug.Log ("P" + human.getJoystickId() + " : B"); 
@@ -134,6 +137,7 @@ public class HumanController : MonoBehaviour
 			if(human.getAmmo()>0){
 				human.removeAmmo ();
 				triggerAllAnimators (animatorsArm,"shootTrigger");  //Trigger Animation which will call function from BulletSpawner.cs
+				SoundManager.instance.RandomizeSfx (shot);
 			}
 		}
 		if (Input.GetKeyDown (xboxInput.Y)) {

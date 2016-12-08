@@ -10,6 +10,8 @@ public class Night : Bonus_Abstract {
 	public float nightTime;
 	public float dissipationTime;
 
+	public AudioClip night;
+
 	public GameObject nightGO;
 
 	private float opacity;
@@ -24,6 +26,7 @@ public class Night : Bonus_Abstract {
 		nightGO = GameObject.Find ("NightImage");
 		nightSprite = nightGO.GetComponent<SpriteRenderer> ();
 		nightSprite.color = new Color (nightSprite.color.r, nightSprite.color.g, nightSprite.color.b, opacity);
+		SoundManager.instance.RandomizeSfx (night);
 	}
 	
 	// Update is called once per frame
