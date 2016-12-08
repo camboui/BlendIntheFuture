@@ -16,11 +16,17 @@ public class PauseMenuController : MonoBehaviour {
 		disabledScripts = new List<MonoBehaviour> ();
 		MonoBehaviour thisScript = transform.GetComponent<MonoBehaviour> ();
 
+	
 		MonoBehaviour[] scripts = GameObject.FindObjectsOfType<MonoBehaviour> ();
 		foreach (MonoBehaviour p in scripts) {
 			if (GameVariables.customScripts.Contains (p.GetType ().ToString ()) && !p.Equals (thisScript) && p.enabled) {
-				disabledScripts.Add (p);
-				p.enabled = false;
+			//	Debug.Log ("***********");
+			//	Debug.Log (p.name);
+			//	SelectOnInput.
+				if (p.name != "PausePanel" && p.name != "HelpPanel" && p.name != "AudioPanel" && p.name != "PauseCanvas") {
+					disabledScripts.Add (p);
+					p.enabled = false;
+				}
 			}
 		}
 	}
