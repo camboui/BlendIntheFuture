@@ -16,6 +16,8 @@ public class DescriptionMenuController : MonoBehaviour {
 	private int nbPlayers;
 	private int nbReadyPlayers;
 
+	public AudioClip validate;
+
 	void Start () { 
 		xboxInputs = new List<XboxInput> ();
 		arePlayersReady = new List<bool> ();
@@ -60,6 +62,7 @@ public class DescriptionMenuController : MonoBehaviour {
 				if (!arePlayersReady [j]) {
 					nbReadyPlayers++;
 					arePlayersReady [j] = true;
+					SoundManager.instance.RandomizeSfx (validate);
 				}
 				associatedPlayerText [j].text = "Ready";
 				associatedPlayerImage [j].gameObject.SetActive (false);

@@ -17,8 +17,9 @@ public class EndRoundMenuController : MonoBehaviour {
 	public Sprite imageNoPoint;
 	public Sprite ImageWinningBackground;
 
-	public AudioSource addPointSound;
-	public AudioSource removePointSound;
+
+	public AudioClip addPointSound;
+	public AudioClip removePointSound;
 
 	void Start () {
 		
@@ -97,7 +98,7 @@ public class EndRoundMenuController : MonoBehaviour {
 			for (int j = current.getCurrentScore (); j < current.getCurrentScore () + current.getPointsToAdd (); j++) {
 				if (j < GameVariables.nbRound) {
 					yield return new WaitForSeconds (timeBetweenPoints);
-					addPointSound.Play ();
+					SoundManager.instance.RandomizeSfx (addPointSound);
 					printedPoints [i, j].sprite = imageWonPoint;
 					skullNb [i].text = "x" + (j + 1);
 				}
@@ -108,7 +109,7 @@ public class EndRoundMenuController : MonoBehaviour {
 			for (int j = printedScore; j > printedScore - current.getPointsToRemove (); j--) {
 				if (j >= 0) {
 					yield return new WaitForSeconds (timeBetweenPoints); 
-					removePointSound.Play ();
+					SoundManager.instance.RandomizeSfx (removePointSound);
 					printedPoints [i, j].sprite = imageNoPoint;
 					skullNb [i].text = "x" + j;
 				}

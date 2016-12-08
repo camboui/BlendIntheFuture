@@ -9,7 +9,10 @@ public class DeathHandler : MonoBehaviour {
 	public List<Animator> animatorsBody;
 	public List<GameObject> characterRenderers;
 
+	public AudioClip death;
+
 	void Start(){
+
 		animatorsBody = new List<Animator> ();
 
 		bodiesContainer = GameObject.Find ("BodiesContainer").transform;
@@ -60,6 +63,8 @@ public class DeathHandler : MonoBehaviour {
 
 	private void triggerAllAnimators(List<Animator> animators,string triggerName)
 	{
+		SoundManager.instance.RandomizeSfx (death);
+
 		foreach (Animator anm in animators) {
 			anm.SetTrigger (triggerName);
 		}
